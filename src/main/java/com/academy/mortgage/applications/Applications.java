@@ -1,8 +1,6 @@
 package com.academy.mortgage.applications;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +15,9 @@ public class Applications {
     @GeneratedValue
     private long id;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    private Users userId;
+
     private long monthlyIncome; //max 9223372036854775807
     private long monthlyObligations; //max 9223372036854775807
     private long realEstatePrice; //max 9223372036854775807
@@ -26,6 +27,7 @@ public class Applications {
     private float interestRateMargin; // 2.5%
     private float interestRateEuribor; // depends on paymentScheduleType
     private String paymentScheduleType; // annuity, linear
-    private int kidsAmount;
-    private int applicantAmount;
+    private int childrenAmount;
+    private int applicantsAmount;
+    private String applicationStatus; // received, in progress, approved, rejected
 }
