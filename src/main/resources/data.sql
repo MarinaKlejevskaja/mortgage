@@ -44,8 +44,8 @@ VALUES (1,
 ON CONFLICT (id) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS constants
-(
-    min_loan_term INT NOT NULL,
+(    id SERIAL PRIMARY KEY,
+     min_loan_term INT NOT NULL,
     max_loan_term INT NOT NULL,
     max_num_of_applicants INT NOT NULL,
     loan_amount_percentage FLOAT NOT NULL,
@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS constants
     min_kids INT NOT NULL,
     max_monthly_loan_interest_percentage FLOAT NOT NULL
     );
-INSERT INTO constants (min_loan_term,
+INSERT INTO constants (id,
+                       min_loan_term,
                           max_loan_term,
                           max_num_of_applicants,
                           loan_amount_percentage,
@@ -64,6 +65,7 @@ INSERT INTO constants (min_loan_term,
                           max_monthly_loan_interest_percentage
                  )
 VALUES (1,
+        1,
         30,
         2,
         0.85,
