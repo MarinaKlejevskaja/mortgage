@@ -43,7 +43,7 @@ VALUES (1,
         'received')
 ON CONFLICT (id) DO NOTHING;
 
-CREATE TABLE constants (
+CREATE TABLE IF NOT EXISTS constants (
                            id SERIAL PRIMARY KEY,
                            min_loan_term INT NOT NULL,
                            max_loan_term INT NOT NULL,
