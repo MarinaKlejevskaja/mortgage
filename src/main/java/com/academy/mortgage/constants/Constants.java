@@ -1,6 +1,7 @@
 package com.academy.mortgage.constants;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,3 +27,4 @@ public class Constants {
     private float maxMonthlyObligationsPercentage;
     private String applicationStatus;
 }
+

@@ -1,10 +1,9 @@
-package com.academy.mortgage.constants;
-
+package com.academy.mortgage.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ConstantsController {
+public class UsersController {
     @Autowired
-    ConstantsRepository constantsRepository;
+    UsersRepository userRepository;
 }
