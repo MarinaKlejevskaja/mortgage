@@ -79,3 +79,10 @@ INSERT INTO constants (
              0.4,
              'received'
          ) ON CONFLICT (id) DO NOTHING;
+
+CREATE TABLE users (
+                       id SERIAL PRIMARY KEY,
+                       name VARCHAR(255) NOT NULL,
+                       surname VARCHAR(255) NOT NULL,
+                       email VARCHAR(255) NOT NULL
+);
