@@ -23,6 +23,6 @@ public class Constants {
     private float interestRateMargin;
     private int maxKids;
     private int minKids;
-    private float maxMonthlyLoanInterestPercentage;
+    private float maxMonthlyObligationsPercentage;
     private String applicationStatus;
 }
