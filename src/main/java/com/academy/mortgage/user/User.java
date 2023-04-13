@@ -1,4 +1,4 @@
-package com.academy.mortgage.repository;
+package com.academy.mortgage.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRepository {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
