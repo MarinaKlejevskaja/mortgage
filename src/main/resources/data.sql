@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS applications
     application_status VARCHAR(255) NOT NULL
     );
 
-INSERT INTO applications (monthly_income,
+INSERT INTO applications (id,
+                          monthly_income,
                           monthly_obligations,
                           real_estate_price,
                           down_payment,
@@ -28,7 +29,8 @@ INSERT INTO applications (monthly_income,
                           children_amount,
                           applicants_amount,
                           application_status)
-VALUES (5000,
+VALUES (1,
+        5000,
         2000,
         200000,
         30000,
@@ -39,4 +41,5 @@ VALUES (5000,
         'annuity',
         2,
         2,
-        'received');
+        'received')
+ON CONFLICT (id) DO NOTHING;
