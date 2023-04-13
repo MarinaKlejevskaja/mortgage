@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS applications
     loan_term INT NOT NULL,
     interest_rate_margin FLOAT NOT NULL,
     interest_rate_euribor FLOAT NOT NULL,
-    payment_schedule_type
-    VARCHAR(255) NOT NULL,
+    payment_schedule_type VARCHAR(255) NOT NULL,
     children_amount INT NOT NULL,
     applicants_amount INT NOT NULL,
     application_status VARCHAR(255) NOT NULL
