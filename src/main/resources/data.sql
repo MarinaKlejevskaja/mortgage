@@ -43,35 +43,47 @@ VALUES (1,
         'received')
 ON CONFLICT (id) DO NOTHING;
 
-CREATE TABLE IF NOT EXISTS constants
-(    id SERIAL PRIMARY KEY,
-     min_loan_term INT NOT NULL,
-    max_loan_term INT NOT NULL,
-    max_num_of_applicants INT NOT NULL,
-    loan_amount_percentage FLOAT NOT NULL,
-    interest_rate_margin FLOAT NOT NULL,
-    max_kids INT NOT NULL,
-    min_kids INT NOT NULL,
-    max_monthly_loan_interest_percentage FLOAT NOT NULL
-    );
-INSERT INTO constants (id,
-                       min_loan_term,
-                          max_loan_term,
-                          max_num_of_applicants,
-                          loan_amount_percentage,
-                          interest_rate_margin,
-                          max_kids,
-                          min_kids,
-                          max_monthly_loan_interest_percentage
-                 )
-VALUES (1,
-        1,
-        30,
-        2,
-        0.85,
-        0.025,
-        10,
-        0,
-        0.4
-        )
+CREATE TABLE IF NOT EXISTS constants (
+                           id SERIAL PRIMARY KEY,
+                           min_loan_term INT NOT NULL,
+                           max_loan_term INT NOT NULL,
+                           max_num_of_applicants FLOAT NOT NULL,
+                           loan_amount_percentage FLOAT NOT NULL,
+                           interest_rate_margin FLOAT NOT NULL,
+                           max_kids INT NOT NULL,
+                           min_kids INT NOT NULL,
+                           max_monthly_obligations_percentage FLOAT NOT NULL,
+                           application_status VARCHAR(255) NOT NULL
+);
 
+INSERT INTO constants (
+    id,
+    min_loan_term,
+    max_loan_term,
+    max_num_of_applicants,
+    loan_amount_percentage,
+    interest_rate_margin,
+    max_kids,
+    min_kids,
+    max_monthly_obligations_percentage,
+    application_status
+) VALUES (
+             1,
+             1,
+             30,
+             2,
+             0.85,
+             0.025,
+             10,
+             0,
+             0.4,
+             'received'
+         ) ON CONFLICT (id) DO NOTHING;
+
+
+CREATE TABLE IF NOT EXISTS users (
+                       id SERIAL PRIMARY KEY,
+                       first_name VARCHAR(255) NOT NULL,
+                       last_name VARCHAR(255) NOT NULL,
+                       email VARCHAR(255) NOT NULL
+);

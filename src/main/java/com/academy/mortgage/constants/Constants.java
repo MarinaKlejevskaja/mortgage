@@ -1,10 +1,7 @@
 package com.academy.mortgage.constants;
 
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +21,10 @@ public class Constants {
     private int maxLoanTerm;
     private int maxNumOfApplicants;
     private float loanAmountPercentage;
-    private float interestMargin;
+    private float interestRateMargin;
     private int maxKids;
     private int minKids;
-    private float maxMonthlyLoanInterestPercentage;
+    private float maxMonthlyObligationsPercentage;
     private String applicationStatus;
 }
+
