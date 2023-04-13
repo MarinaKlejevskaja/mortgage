@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class UsersController {
     @Autowired
-    private UsersRepository usersRepository;
+    UsersRepository usersRepository;
 }
