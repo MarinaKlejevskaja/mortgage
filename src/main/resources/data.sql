@@ -1,45 +1,45 @@
--- CREATE TABLE IF NOT EXISTS applications
--- (
---     id SERIAL PRIMARY KEY,
---     monthly_income BIGINT NOT NULL,
---     monthly_obligations BIGINT NOT NULL,
---     real_estate_price BIGINT NOT NULL,
---     down_payment INT NOT NULL,
---     loan_amount BIGINT NOT NULL,
---     loan_term INT NOT NULL,
---     interest_rate_margin FLOAT NOT NULL,
---     interest_rate_euribor FLOAT NOT NULL,
---     payment_schedule_type
---     VARCHAR(255) NOT NULL,
---     children_amount INT NOT NULL,
---     applicants_amount INT NOT NULL,
---     application_status VARCHAR(255) NOT NULL
---     );
--- 
--- INSERT INTO applications (id,
---                           monthly_income,
---                           monthly_obligations,
---                           real_estate_price,
---                           down_payment,
---                           loan_amount,
---                           loan_term,
---                           interest_rate_margin,
---                           interest_rate_euribor,
---                           payment_schedule_type,
---                           children_amount,
---                           applicants_amount,
---                           application_status)
--- VALUES (1,
---         5000,
---         2000,
---         200000,
---         30000,
---         170000,
---         20,
---         2.5,
---         0.5,
---         'annuity',
---         2,
---         2,
---         'received')
--- ON CONFLICT (id) DO NOTHING;
+CREATE TABLE IF NOT EXISTS applications
+(
+    id SERIAL PRIMARY KEY,
+    monthly_income BIGINT NOT NULL,
+    monthly_obligations BIGINT NOT NULL,
+    real_estate_price BIGINT NOT NULL,
+    down_payment INT NOT NULL,
+    loan_amount BIGINT NOT NULL,
+    loan_term INT NOT NULL,
+    interest_rate_margin FLOAT NOT NULL,
+    interest_rate_euribor FLOAT NOT NULL,
+    payment_schedule_type
+    VARCHAR(255) NOT NULL,
+    children_amount INT NOT NULL,
+    applicants_amount INT NOT NULL,
+    application_status VARCHAR(255) NOT NULL
+    );
+
+INSERT INTO applications (id,
+                          monthly_income,
+                          monthly_obligations,
+                          real_estate_price,
+                          down_payment,
+                          loan_amount,
+                          loan_term,
+                          interest_rate_margin,
+                          interest_rate_euribor,
+                          payment_schedule_type,
+                          children_amount,
+                          applicants_amount,
+                          application_status)
+VALUES (1,
+        5000,
+        2000,
+        200000,
+        30000,
+        170000,
+        20,
+        2.5,
+        0.5,
+        'annuity',
+        2,
+        2,
+        'received')
+ON CONFLICT (id) DO NOTHING;
