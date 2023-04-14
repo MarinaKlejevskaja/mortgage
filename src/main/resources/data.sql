@@ -77,7 +77,7 @@ INSERT INTO constants (
              10,
              0,
              0.4,
-             'received'
+             'RECEIVED'
          ) ON CONFLICT (id) DO NOTHING;
 
 

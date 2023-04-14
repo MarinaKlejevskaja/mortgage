@@ -1,7 +1,7 @@
 package com.academy.mortgage.constants;
 
+import com.academy.mortgage.constants.enums.ApplicationStatus;
 import jakarta.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "constants")
 public class Constants {
 
-    //    @OneToOne(fetch = FetchType.LAZY)
     @Id
     @GeneratedValue
     private long id;
@@ -25,6 +24,7 @@ public class Constants {
     private int maxKids;
     private int minKids;
     private float maxMonthlyObligationsPercentage;
-    private String applicationStatus;
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus applicationStatus;
 }
 
