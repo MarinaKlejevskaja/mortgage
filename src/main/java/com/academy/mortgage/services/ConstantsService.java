@@ -1,5 +1,6 @@
 package com.academy.mortgage.services;
 
+import com.academy.mortgage.exceptions.ConstantsNotFoundException;
 import com.academy.mortgage.model.Constants;
 import com.academy.mortgage.repositories.ConstantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,6 @@ public class ConstantsService {
     ConstantsRepository constantsRepository;
 
     public Constants getConstants() {
-        return constantsRepository.findById(1L).orElse(null);
+        return constantsRepository.findById(1L).orElseThrow(() -> new ConstantsNotFoundException(1L));
     }
 }
