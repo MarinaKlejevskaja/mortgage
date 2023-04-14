@@ -1,7 +1,7 @@
 package com.academy.mortgage.model.enums;
 
 public enum ApplicationStatus {
-    RECEIVED("received"),
+    RECEIVED("Received"),
     IN_PROGRESS("In Progress"),
     APPROVED("Approved"),
     REJECTED("Rejected");
