@@ -1,5 +1,6 @@
-package com.academy.mortgage.applications;
+package com.academy.mortgage.model;
 
+import com.academy.mortgage.model.enums.ApplicationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,6 @@ public class Applications {
     private String paymentScheduleType; // annuity, linear
     private int childrenAmount;
     private int applicantsAmount;
-    private String applicationStatus; // received, in progress, approved, rejected
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus applicationStatus;
 }

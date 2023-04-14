@@ -15,33 +15,34 @@ CREATE TABLE IF NOT EXISTS applications
     application_status VARCHAR(255) NOT NULL
     );
 
-INSERT INTO applications (id,
-                          monthly_income,
-                          monthly_obligations,
-                          real_estate_price,
-                          down_payment,
-                          loan_amount,
-                          loan_term,
-                          interest_rate_margin,
-                          interest_rate_euribor,
-                          payment_schedule_type,
-                          children_amount,
-                          applicants_amount,
-                          application_status)
-VALUES (1,
-        5000,
-        2000,
-        200000,
-        30000,
-        170000,
-        20,
-        2.5,
-        0.5,
-        'annuity',
-        2,
-        2,
-        'received')
-ON CONFLICT (id) DO NOTHING;
+-- INSERT INTO applications (id,
+--                           monthly_income,
+--                           monthly_obligations,
+--                           real_estate_price,
+--                           down_payment,
+--                           loan_amount,
+--                           loan_term,
+--                           interest_rate_margin,
+--                           interest_rate_euribor,
+--                           payment_schedule_type,
+--                           children_amount,
+--                           applicants_amount,
+--                           application_status)
+-- VALUES (1,
+--         5000,
+--         2000,
+--         200000,
+--         30000,
+--         170000,
+--         20,
+--         2.5,
+--         0.5,
+--         'annuity',
+--         2,
+--         2,
+--         'received'
+--                             )
+-- ON CONFLICT (id) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS constants (
                            id SERIAL PRIMARY KEY,
@@ -52,8 +53,7 @@ CREATE TABLE IF NOT EXISTS constants (
                            interest_rate_margin FLOAT NOT NULL,
                            max_kids INT NOT NULL,
                            min_kids INT NOT NULL,
-                           max_monthly_obligations_percentage FLOAT NOT NULL,
-                           application_status VARCHAR(255) NOT NULL
+                           max_monthly_obligations_percentage FLOAT NOT NULL
 );
 
 INSERT INTO constants (
@@ -65,8 +65,7 @@ INSERT INTO constants (
     interest_rate_margin,
     max_kids,
     min_kids,
-    max_monthly_obligations_percentage,
-    application_status
+    max_monthly_obligations_percentage
 ) VALUES (
              1,
              1,
@@ -76,9 +75,7 @@ INSERT INTO constants (
              0.025,
              10,
              0,
-             0.4,
-             'RECEIVED'
-         ) ON CONFLICT (id) DO NOTHING;
+             0.4         ) ON CONFLICT (id) DO NOTHING;
 
 
 CREATE TABLE IF NOT EXISTS users (

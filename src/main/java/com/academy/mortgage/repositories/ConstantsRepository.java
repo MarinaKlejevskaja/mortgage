@@ -1,5 +1,6 @@
-package com.academy.mortgage.constants;
+package com.academy.mortgage.repositories;
 
+import com.academy.mortgage.model.Constants;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

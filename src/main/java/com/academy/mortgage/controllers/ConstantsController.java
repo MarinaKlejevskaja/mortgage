@@ -1,12 +1,16 @@
-package com.academy.mortgage.constants;
+package com.academy.mortgage.controllers;
 
+import com.academy.mortgage.model.Constants;
+import com.academy.mortgage.services.ConstantsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "https://be-mortgage-calculator.onrender.com")
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 public class ConstantsController {

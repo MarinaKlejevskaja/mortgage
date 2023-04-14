@@ -1,5 +1,6 @@
-package com.academy.mortgage.users;
+package com.academy.mortgage.repositories;
 
+import com.academy.mortgage.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
