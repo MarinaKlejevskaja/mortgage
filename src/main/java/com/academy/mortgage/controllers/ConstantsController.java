@@ -6,10 +6,7 @@ import com.academy.mortgage.services.ConstantsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -20,6 +17,12 @@ public class ConstantsController {
     @GetMapping("/constants")
     public ResponseEntity<Constants> getConstants() {
         Constants constants = constantsService.getConstants();
+        return new ResponseEntity<>(constants, HttpStatus.OK);
+    }
+
+    @PutMapping("/constants")
+    public ResponseEntity<Constants> updateConstants(@RequestBody Constants updatedConstants) {
+        Constants constants = constantsService.updateConstants(updatedConstants);
         return new ResponseEntity<>(constants, HttpStatus.OK);
     }
 
