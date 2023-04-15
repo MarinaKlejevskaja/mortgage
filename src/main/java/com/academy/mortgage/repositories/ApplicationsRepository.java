@@ -1,5 +1,6 @@
-package com.academy.mortgage.applications;
+package com.academy.mortgage.repositories;
 
+import com.academy.mortgage.model.Applications;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

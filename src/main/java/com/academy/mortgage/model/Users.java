@@ -1,4 +1,4 @@
-package com.academy.mortgage.users;
+package com.academy.mortgage.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

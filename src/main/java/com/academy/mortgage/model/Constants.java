@@ -1,14 +1,12 @@
-package com.academy.mortgage.constants;
+package com.academy.mortgage.model;
 
-import com.academy.mortgage.constants.enums.ApplicationStatus;
+import com.academy.mortgage.model.enums.ApplicationStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "constants")
 public class Constants {
@@ -24,7 +22,5 @@ public class Constants {
     private int maxKids;
     private int minKids;
     private float maxMonthlyObligationsPercentage;
-    @Enumerated(EnumType.STRING)
-    private ApplicationStatus applicationStatus;
 }
 

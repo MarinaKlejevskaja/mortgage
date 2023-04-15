@@ -1,4 +1,4 @@
-package com.academy.mortgage.constants.enums;
+package com.academy.mortgage.model.enums;
 
 public enum ApplicationStatus {
     RECEIVED("Received"),
