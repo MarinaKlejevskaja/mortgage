@@ -17,10 +17,9 @@ public class Applications {
     @Id
     @GeneratedValue
     private long id;
-
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private Users userId;
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users userId;
     private long monthlyIncome; //max 9223372036854775807
     // private long monthlyObligations; //max 9223372036854775807
     private long mortgageLoans; //max 9223372036854775807
