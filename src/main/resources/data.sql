@@ -1,6 +1,23 @@
+CREATE TABLE IF NOT EXISTS users
+(
+    id         SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name  VARCHAR(255) NOT NULL,
+    email      VARCHAR(255) NOT NULL
+);
+
+INSERT INTO users (first_name,
+                   last_name,
+                   email)
+VALUES ('name1',
+        'surname1',
+        'test@r.f');
+
+
 CREATE TABLE IF NOT EXISTS applications
 (
     id                    SERIAL PRIMARY KEY,
+    user_id               BIGINT       NOT NULL,
     monthly_income        BIGINT       NOT NULL,
     mortgage_loans        BIGINT       NOT NULL,
     consumer_loans        BIGINT       NOT NULL,
@@ -15,10 +32,13 @@ CREATE TABLE IF NOT EXISTS applications
     payment_schedule_type VARCHAR(255) NOT NULL,
     children_amount       INT          NOT NULL,
     applicants_amount     INT          NOT NULL,
-    application_status    VARCHAR(255) NOT NULL
+    application_status    VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_applications_users
+        FOREIGN KEY (user_id)
+            REFERENCES users (id)
 );
 
-INSERT INTO applications (
+INSERT INTO applications (user_id,
                           monthly_income,
                           mortgage_loans,
                           consumer_loans,
@@ -34,7 +54,7 @@ INSERT INTO applications (
                           children_amount,
                           applicants_amount,
                           application_status)
-VALUES (
+VALUES (1,
         1000000,
         1500,
         250,
@@ -49,9 +69,7 @@ VALUES (
         'ANNUITY',
         2,
         1,
-        'RECEIVED')
-ON CONFLICT (id) DO NOTHING;
-
+        'RECEIVED');
 
 
 CREATE TABLE IF NOT EXISTS constants
@@ -86,12 +104,3 @@ VALUES (1,
         0,
         0.4)
 ON CONFLICT (id) DO NOTHING;
-
-
-CREATE TABLE IF NOT EXISTS users
-(
-    id         SERIAL PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NOT NULL,
-    email      VARCHAR(255) NOT NULL
-);
