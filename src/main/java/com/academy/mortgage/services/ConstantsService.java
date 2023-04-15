@@ -6,8 +6,6 @@ import com.academy.mortgage.repositories.ConstantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ConstantsService {
 
@@ -17,6 +15,7 @@ public class ConstantsService {
     public Constants getConstants() {
         return constantsRepository.findById(1L).orElseThrow(() -> new ConstantsNotFoundException(1L));
     }
+
     public Constants updateConstants(Constants updatedConstants) {
         return constantsRepository.findById(1L)
                 .map(constants -> {
