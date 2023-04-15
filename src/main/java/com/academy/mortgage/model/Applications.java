@@ -2,6 +2,9 @@ package com.academy.mortgage.model;
 
 import com.academy.mortgage.model.enums.ApplicationStatus;
 import com.academy.mortgage.model.enums.PaymentScheduleType;
+import com.academy.mortgage.serializers.UsersSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +22,7 @@ public class Applications {
     private long id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonSerialize(using = UsersSerializer.class)
     private Users userId;
     private long monthlyIncome; //max 9223372036854775807
     // private long monthlyObligations; //max 9223372036854775807
