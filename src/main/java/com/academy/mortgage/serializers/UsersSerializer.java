@@ -8,7 +8,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.io.IOException;
 
-public class UsersSerializer  extends StdSerializer<Users> {
+public class UsersSerializer extends StdSerializer<Users> {
 
     public UsersSerializer() {
         this(null);
