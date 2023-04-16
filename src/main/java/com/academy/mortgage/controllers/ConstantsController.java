@@ -9,18 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/constants")
 public class ConstantsController {
     @Autowired
     ConstantsService constantsService;
 
-    @GetMapping("/constants")
+    @GetMapping()
     public ResponseEntity<Constants> getConstants() {
         Constants constants = constantsService.getConstants();
         return new ResponseEntity<>(constants, HttpStatus.OK);
     }
 
-    @PutMapping("/constants")
+    @PutMapping()
     public ResponseEntity<Constants> updateConstants(@RequestBody Constants updatedConstants) {
         Constants constants = constantsService.updateConstants(updatedConstants);
         return new ResponseEntity<>(constants, HttpStatus.OK);

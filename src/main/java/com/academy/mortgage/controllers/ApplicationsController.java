@@ -18,7 +18,7 @@ public class ApplicationsController {
         return applicationsService.getApplications();
     }
 
-    @PostMapping
+    @PostMapping()
     public void save(@RequestBody Applications application) {
         applicationsService.addApplication(application);
     }
