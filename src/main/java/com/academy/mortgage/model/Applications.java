@@ -18,7 +18,7 @@ public class Applications {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonSerialize(using = UsersSerializer.class)
