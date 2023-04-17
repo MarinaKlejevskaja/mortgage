@@ -6,12 +6,12 @@ CREATE TABLE IF NOT EXISTS users
     email      VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (first_name,
-                   last_name,
-                   email)
-VALUES ('name1',
-        'surname1',
-        'test@r.f');
+-- INSERT INTO users (first_name,
+--                    last_name,
+--                    email)
+-- VALUES ('name1',
+--         'surname1',
+--         'test@r.f');
 
 
 CREATE TABLE IF NOT EXISTS applications
@@ -38,38 +38,38 @@ CREATE TABLE IF NOT EXISTS applications
             REFERENCES users (id)
 );
 
-INSERT INTO applications (user_id,
-                          monthly_income,
-                          mortgage_loans,
-                          consumer_loans,
-                          leasing_amount,
-                          credit_card_limit,
-                          real_estate_price,
-                          down_payment,
-                          loan_amount,
-                          loan_term,
-                          interest_rate_margin,
-                          interest_rate_euribor,
-                          payment_schedule_type,
-                          children_amount,
-                          applicants_amount,
-                          application_status)
-VALUES (1,
-        1000000,
-        1500,
-        250,
-        7000,
-        200,
-        100000,
-        150000,
-        85000,
-        3,
-        0.025,
-        0.0535,
-        'ANNUITY',
-        2,
-        1,
-        'RECEIVED');
+-- INSERT INTO applications (user_id,
+--                           monthly_income,
+--                           mortgage_loans,
+--                           consumer_loans,
+--                           leasing_amount,
+--                           credit_card_limit,
+--                           real_estate_price,
+--                           down_payment,
+--                           loan_amount,
+--                           loan_term,
+--                           interest_rate_margin,
+--                           interest_rate_euribor,
+--                           payment_schedule_type,
+--                           children_amount,
+--                           applicants_amount,
+--                           application_status)
+-- VALUES (13,
+--         1000000,
+--         1500,
+--         250,
+--         7000,
+--         200,
+--         100000,
+--         150000,
+--         85000,
+--         3,
+--         0.025,
+--         0.0535,
+--         'ANNUITY',
+--         2,
+--         1,
+--         'RECEIVED');
 
 
 CREATE TABLE IF NOT EXISTS constants
