@@ -1,7 +1,9 @@
 package com.academy.mortgage.model;
 
-import com.academy.mortgage.model.enums.ApplicationStatus;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,14 +15,14 @@ public class Constants {
 
     @Id
     @GeneratedValue
-    private long id;
-    private int minLoanTerm;
-    private int maxLoanTerm;
-    private int maxNumOfApplicants;
-    private float loanAmountPercentage;
-    private float interestRateMargin;
-    private int maxKids;
-    private int minKids;
-    private float maxMonthlyObligationsPercentage;
+    private Long id;
+    private Integer minLoanTerm;
+    private Integer maxLoanTerm;
+    private Integer maxNumOfApplicants;
+    private Float loanAmountPercentage;
+    private Float interestRateMargin;
+    private Integer maxKids;
+    private Integer minKids;
+    private Float maxMonthlyObligationsPercentage;
 }
 
