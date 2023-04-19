@@ -22,7 +22,7 @@ public class Applications {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonSerialize(using = UsersSerializer.class)
-    private Users userId;
+    private User userId;
     private Float monthlyIncome;
     private Float mortgageLoans;
     private Float consumerLoans;
