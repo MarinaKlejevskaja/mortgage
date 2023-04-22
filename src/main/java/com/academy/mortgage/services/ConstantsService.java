@@ -24,6 +24,7 @@ public class ConstantsService {
         fallBackConstants.setId(1L);
         fallBackConstants.setMinLoanTerm(1);
         fallBackConstants.setMaxLoanTerm(30);
+        fallBackConstants.setMaxNumOfApplicants(2);
         fallBackConstants.setLoanAmountPercentage(0.85f);
         fallBackConstants.setInterestRateMargin(0.025f);
         fallBackConstants.setMinKids(0);
