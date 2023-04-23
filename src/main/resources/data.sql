@@ -104,3 +104,7 @@ VALUES (1,
         0,
         0.4)
 ON CONFLICT (id) DO NOTHING;
+
+-- INSERT INTO users (id, first_name, last_name, email, password, role)
+-- VALUES (1, 'Admin', 'Admin', 'admin@admin.lt', '$2a$12$rb3NicZ9La29jNKs0vL.WOUirxVSKgLIW.Dv1pN/wD4ONGgBmqkhe', 'ADMIN');
+-- adminpassword

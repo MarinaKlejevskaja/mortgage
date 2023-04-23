@@ -1,7 +1,8 @@
 package com.academy.mortgage.config;
 
-import jakarta.servlet.Filter;
+import com.academy.mortgage.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,7 +24,7 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                 .disable()
@@ -32,6 +33,8 @@ public class SecurityConfiguration {
                 .permitAll()
                 .requestMatchers("/api/v1/constants")
                 .permitAll()
+                .requestMatchers("/api/admin/**")
+                .hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
