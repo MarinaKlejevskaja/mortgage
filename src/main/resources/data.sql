@@ -109,7 +109,7 @@ VALUES (1,
         0.4)
 ON CONFLICT (id) DO NOTHING;
 --
-INSERT INTO users (first_name, last_name, email, password, role)
-VALUES ('Admin', 'Admin', 'admin@admin.lt', '$2a$12$rb3NicZ9La29jNKs0vL.WOUirxVSKgLIW.Dv1pN/wD4ONGgBmqkhe', 'ADMIN');
+INSERT INTO users (id, first_name, last_name, email, password, role)
+VALUES (34, 'Admin', 'Admin', 'admin@admin.lt', '$2a$12$rb3NicZ9La29jNKs0vL.WOUirxVSKgLIW.Dv1pN/wD4ONGgBmqkhe', 'ADMIN');
 
 -- adminpassword
