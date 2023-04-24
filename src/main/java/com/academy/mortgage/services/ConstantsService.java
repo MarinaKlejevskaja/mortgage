@@ -13,7 +13,24 @@ public class ConstantsService {
     ConstantsRepository constantsRepository;
 
     public Constants getConstants() {
-        return constantsRepository.findById(1L).orElseThrow(() -> new ConstantsNotFoundException(1L));
+        return constantsRepository.findById(1L).orElseGet(() -> {
+            constantsRepository.save(fallbackConstants());
+            return constantsRepository.findById(1L).orElseThrow(() -> new ConstantsNotFoundException(1L));
+        });
+    }
+
+    public Constants fallbackConstants() {
+        Constants fallBackConstants = new Constants();
+        fallBackConstants.setId(1L);
+        fallBackConstants.setMinLoanTerm(1);
+        fallBackConstants.setMaxLoanTerm(30);
+        fallBackConstants.setMaxNumOfApplicants(2);
+        fallBackConstants.setLoanAmountPercentage(0.85f);
+        fallBackConstants.setInterestRateMargin(0.025f);
+        fallBackConstants.setMinKids(0);
+        fallBackConstants.setMaxKids(10);
+        fallBackConstants.setMaxMonthlyObligationsPercentage(0.4f);
+        return fallBackConstants;
     }
 
     public Constants updateConstants(Constants updatedConstants) {
