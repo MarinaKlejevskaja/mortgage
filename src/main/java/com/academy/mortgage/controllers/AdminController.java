@@ -24,5 +24,4 @@ public class AdminController {
         List<User> userList = userRepository.findAll();
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
-
 }

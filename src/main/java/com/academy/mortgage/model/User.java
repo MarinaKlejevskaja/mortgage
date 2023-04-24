@@ -44,8 +44,6 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    public User(String email, String password, List<GrantedAuthority> authorities) {
-    }
 
     public Role getRole() {
         return role;
@@ -85,5 +83,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }
