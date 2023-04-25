@@ -1,22 +1,13 @@
--- DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE IF NOT EXISTS users
 (
-    id         SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name  VARCHAR(255) NOT NULL,
     email      VARCHAR(255) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
     role       VARCHAR(20) NOT NULL
 );
-
--- INSERT INTO users (first_name,
---                    last_name,
---                    email)
--- VALUES ('name1',
---         'surname1',
---         'test@r.f');
-
 
 CREATE TABLE IF NOT EXISTS applications
 (
@@ -109,6 +100,6 @@ VALUES (1,
         0.4)
 ON CONFLICT (id) DO NOTHING;
 
--- INSERT INTO users (id, first_name, last_name, email, password, role)
--- VALUES (1, 'adminname', 'adminsurname', 'admin@admin.lt', '$2a$12$I0f8HXsBiaPwmfB2xV8p8e1fzFWDhxs/BR51RWnAceL7MbGb86dqK', 'ADMIN');
+INSERT INTO users ( first_name, last_name, email, password, role)
+VALUES ( 'adminname', 'adminsurname', 'admin@admin.lt', '$2a$12$I0f8HXsBiaPwmfB2xV8p8e1fzFWDhxs/BR51RWnAceL7MbGb86dqK', 'ADMIN');
 -- admin
