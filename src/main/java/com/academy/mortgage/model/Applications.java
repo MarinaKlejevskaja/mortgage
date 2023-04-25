@@ -2,10 +2,9 @@ package com.academy.mortgage.model;
 
 import com.academy.mortgage.model.enums.ApplicationStatus;
 import com.academy.mortgage.model.enums.PaymentScheduleType;
-import com.academy.mortgage.serializers.UsersSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,16 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "applications")
 public class Applications {
 
     @Id
     @GeneratedValue
-    private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
+    private Long applicationId;
     @JoinColumn(name = "user_id")
-    @JsonSerialize(using = UsersSerializer.class)
-    private User userId;
+    private Long userId;
+    private Long coApplicantId;
     private Float monthlyIncome;
     private Float mortgageLoans;
     private Float consumerLoans;

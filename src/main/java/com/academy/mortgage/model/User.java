@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +36,12 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "password", nullable = false)
+
     private String password;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    List<Applications> applications;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties("user")
