@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,17 +24,17 @@ public class Applications {
     @JoinColumn(name = "user_id")
     private Long userId;
     private Long coApplicantId;
-    private Float monthlyIncome;
-    private Float mortgageLoans;
-    private Float consumerLoans;
-    private Float leasingAmount;
-    private Float creditCardLimit;
-    private Float realEstatePrice;
-    private Float downPayment;
-    private Float loanAmount;
+    private BigDecimal monthlyIncome;
+    private BigDecimal mortgageLoans;
+    private BigDecimal consumerLoans;
+    private BigDecimal leasingAmount;
+    private BigDecimal creditCardLimit;
+    private BigDecimal realEstatePrice;
+    private BigDecimal downPayment;
+    private BigDecimal loanAmount;
     private Integer loanTerm;
-    private Float interestRateMargin;
-    private Float interestRateEuribor;
+    private BigDecimal interestRateMargin;
+    private BigDecimal interestRateEuribor;
     @Enumerated(EnumType.STRING)
     private PaymentScheduleType paymentScheduleType;
     private Integer childrenAmount;
