@@ -1,25 +1,30 @@
 package com.academy.mortgage.controllers;
 
 import com.academy.mortgage.model.Applications;
+import com.academy.mortgage.model.api.request.ApplicationRequest;
 import com.academy.mortgage.services.ApplicationsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/applications")
+@RequestMapping("api/v1")
 public class ApplicationsController {
     @Autowired
     ApplicationsService applicationsService;
 
-    @GetMapping()
+    @GetMapping("auth/applications")
     public List<Applications> all() {
         return applicationsService.getApplications();
     }
 
-    @PostMapping()
-    public void save(@RequestBody Applications application) {
-        applicationsService.addApplication(application);
+    @PostMapping("new-application")
+    public ResponseEntity<Applications> save(@Valid @RequestBody ApplicationRequest applicationRequest) {
+        applicationsService.addApplication(applicationRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

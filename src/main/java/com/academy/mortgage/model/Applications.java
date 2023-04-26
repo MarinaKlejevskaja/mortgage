@@ -2,38 +2,41 @@ package com.academy.mortgage.model;
 
 import com.academy.mortgage.model.enums.ApplicationStatus;
 import com.academy.mortgage.model.enums.PaymentScheduleType;
-import com.academy.mortgage.serializers.UsersSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "applications")
 public class Applications {
 
     @Id
     @GeneratedValue
-    private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
+    private Long applicationId;
     @JoinColumn(name = "user_id")
-    @JsonSerialize(using = UsersSerializer.class)
-    private User userId;
-    private Float monthlyIncome;
-    private Float mortgageLoans;
-    private Float consumerLoans;
-    private Float leasingAmount;
-    private Float creditCardLimit;
-    private Float realEstatePrice;
-    private Float downPayment;
-    private Float loanAmount;
+    private Long userId;
+    private Long coApplicantId;
+    private BigDecimal monthlyIncome;
+    private Boolean obligations;
+    private BigDecimal mortgageLoans;
+    private BigDecimal consumerLoans;
+    private BigDecimal leasingAmount;
+    private BigDecimal creditCardLimit;
+    private BigDecimal realEstatePrice;
+    private BigDecimal downPayment;
+    private BigDecimal loanAmount;
     private Integer loanTerm;
-    private Float interestRateMargin;
-    private Float interestRateEuribor;
+    private BigDecimal interestRateMargin;
+    private BigDecimal interestRateEuribor;
+    private Integer euriborTerm;
     @Enumerated(EnumType.STRING)
     private PaymentScheduleType paymentScheduleType;
     private Integer childrenAmount;

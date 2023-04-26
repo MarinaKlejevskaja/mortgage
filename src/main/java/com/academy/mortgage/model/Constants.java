@@ -15,7 +15,7 @@ public class Constants {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     private Integer minLoanTerm;
     private Integer maxLoanTerm;
     private Integer maxNumOfApplicants;

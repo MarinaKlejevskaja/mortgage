@@ -25,9 +25,4 @@ public class ConstantsController {
         Constants constants = constantsService.updateConstants(updatedConstants);
         return new ResponseEntity<>(constants, HttpStatus.OK);
     }
-
-    @ExceptionHandler(ConstantsNotFoundException.class)
-    public ResponseEntity<String> handleConstantsNotFoundException(ConstantsNotFoundException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-    }
 }
