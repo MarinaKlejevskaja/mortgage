@@ -1,5 +1,6 @@
 package com.academy.mortgage.services;
 
+import com.academy.mortgage.exceptions.DuplicateUserException;
 import com.academy.mortgage.model.Applications;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
 import com.academy.mortgage.model.enums.ApplicationStatus;
@@ -24,7 +25,7 @@ public class ApplicationsService {
         Long userId;
         try {
             userId = userService.addUser(applicationRequest).getId();
-        } catch (Exception e) {
+        } catch (DuplicateUserException e) {
             throw e;
         }
         Applications application = Applications.builder()

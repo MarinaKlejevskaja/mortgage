@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS applications, users, constants CASCADE;
+-- DROP TABLE IF EXISTS applications, users, constants CASCADE;
 CREATE TABLE IF NOT EXISTS users
 (
     id         BIGSERIAL PRIMARY KEY,
@@ -70,5 +70,6 @@ ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO users (first_name, last_name, email, password, role)
 VALUES ('adminname', 'adminsurname', 'admin@admin.lt', '$2a$12$I0f8HXsBiaPwmfB2xV8p8e1fzFWDhxs/BR51RWnAceL7MbGb86dqK',
-        'ADMIN');
+        'ADMIN')
+ON CONFLICT (email) DO NOTHING;
 -- admin

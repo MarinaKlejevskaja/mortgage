@@ -2,6 +2,7 @@ package com.academy.mortgage.exceptions.handlers;
 
 import com.academy.mortgage.exceptions.ConstantsNotFoundException;
 import com.academy.mortgage.exceptions.DuplicateUserException;
+import com.academy.mortgage.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,11 @@ public class ControllerExceptionHandler {
     public ResponseEntity<String> handleConstantsNotFoundException(ConstantsNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleConstantsNotFoundException(UserNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(DuplicateUserException.class)
     public ResponseEntity<String> handleDuplicateUserException(DuplicateUserException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
