@@ -20,7 +20,7 @@ public class UserController {
     public ResponseEntity<String> checkEmailAvailability(@RequestParam String email) {
         boolean exists = userService.checkEmail(email);
         if (exists) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Looks like you already have submitted application. Please log it to check your application status");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Looks like you have already submitted an application. Please log in to check your application status.");
         } else {
             return ResponseEntity.ok("Email is available");
         }
