@@ -25,6 +25,7 @@ public class Applications {
     private Long userId;
     private Long coApplicantId;
     private BigDecimal monthlyIncome;
+    private Boolean obligations;
     private BigDecimal mortgageLoans;
     private BigDecimal consumerLoans;
     private BigDecimal leasingAmount;
@@ -35,6 +36,7 @@ public class Applications {
     private Integer loanTerm;
     private BigDecimal interestRateMargin;
     private BigDecimal interestRateEuribor;
+    private Integer euriborTerm;
     @Enumerated(EnumType.STRING)
     private PaymentScheduleType paymentScheduleType;
     private Integer childrenAmount;

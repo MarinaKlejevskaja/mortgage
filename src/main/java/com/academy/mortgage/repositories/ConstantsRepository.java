@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ConstantsRepository extends JpaRepository<Constants, Long> {
+public interface ConstantsRepository extends JpaRepository<Constants, Integer> {
     List<Constants> findAll();
 }

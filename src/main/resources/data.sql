@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS applications, users, constants CASCADE;
 CREATE TABLE IF NOT EXISTS users
 (
     id         BIGSERIAL PRIMARY KEY,
@@ -10,19 +11,21 @@ CREATE TABLE IF NOT EXISTS users
 
 CREATE TABLE IF NOT EXISTS applications
 (
-    id                    SERIAL PRIMARY KEY,
+    id                    BIGSERIAL PRIMARY KEY,
     user_id               BIGINT         NOT NULL,
     monthly_income        NUMERIC(12, 2) NOT NULL,
-    mortgage_loans        NUMERIC(12, 2) NOT NULL,
-    consumer_loans        NUMERIC(12, 2) NOT NULL,
-    leasing_amount        NUMERIC(12, 2) NOT NULL,
-    credit_card_limit     NUMERIC(12, 2) NOT NULL,
+    obligations           boolean NOT NULL,
+    mortgage_loans        NUMERIC(12, 2),
+    consumer_loans        NUMERIC(12, 2),
+    leasing_amount        NUMERIC(12, 2),
+    credit_card_limit     NUMERIC(12, 2),
     real_estate_price     NUMERIC(12, 2) NOT NULL,
     down_payment          NUMERIC(12, 2) NOT NULL,
     loan_amount           NUMERIC(12, 2) NOT NULL,
     loan_term             INTEGER        NOT NULL,
     interest_rate_margin  NUMERIC(5, 4)  NOT NULL,
     interest_rate_euribor NUMERIC(5, 4)  NOT NULL,
+    euribor_term          INTEGER        NOT NULL,
     payment_schedule_type VARCHAR(255)   NOT NULL,
     children_amount       INTEGER        NOT NULL,
     applicants_amount     INTEGER        NOT NULL,
