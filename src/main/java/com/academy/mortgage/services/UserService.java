@@ -1,6 +1,7 @@
 package com.academy.mortgage.services;
 
 import com.academy.mortgage.exceptions.DuplicateUserException;
+import com.academy.mortgage.exceptions.UserNotFoundException;
 import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
 import com.academy.mortgage.model.enums.Role;
@@ -25,6 +26,14 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public User findByEmail(String emailString) {
+        return userRepository.findByEmail(emailString).orElseThrow(() -> new UserNotFoundException(emailString));
+    }
+
+    public Boolean checkEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
     public User addUser(ApplicationRequest applicationRequest) {
         String password = RandomStringUtils.randomAlphanumeric(10);
