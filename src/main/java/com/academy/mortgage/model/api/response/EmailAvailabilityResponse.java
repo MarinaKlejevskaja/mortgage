@@ -1,10 +1,10 @@
 package com.academy.mortgage.model.api.response;
 
-public class EmailAvailabilityDto {
+public class EmailAvailabilityResponse {
     private boolean isAvailable;
     private String message;
 
-    public EmailAvailabilityDto(boolean isAvailable, String message) {
+    public EmailAvailabilityResponse(boolean isAvailable, String message) {
         this.isAvailable = isAvailable;
         this.message = message;
     }

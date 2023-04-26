@@ -1,6 +1,6 @@
 package com.academy.mortgage.controllers;
 
-import com.academy.mortgage.model.api.response.EmailAvailabilityDto;
+import com.academy.mortgage.model.api.response.EmailAvailabilityResponse;
 import com.academy.mortgage.model.enums.Role;
 import com.academy.mortgage.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,13 @@ public class UserController {
     UserService userService;
 
     @GetMapping("users/check-email")
-    public ResponseEntity<EmailAvailabilityDto> checkEmailAvailability(@RequestParam String email) {
+    public ResponseEntity<EmailAvailabilityResponse> checkEmailAvailability(@RequestParam String email) {
         boolean exists = userService.checkEmail(email);
         if (exists) {
-            EmailAvailabilityDto response = new EmailAvailabilityDto(false,"Looks like you already have submitted application. Please log it to check your application status");
+            EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please log it to check your application status");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         } else {
-            EmailAvailabilityDto response = new EmailAvailabilityDto(true,"Email is available");
+            EmailAvailabilityResponse response = new EmailAvailabilityResponse(true,"Email is available");
             return ResponseEntity.ok(response);
         }
     }
