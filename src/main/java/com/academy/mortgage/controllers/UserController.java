@@ -23,6 +23,7 @@ public class UserController {
         if (exists) {
             EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please log it to check your application status");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+
         } else {
             EmailAvailabilityResponse response = new EmailAvailabilityResponse(true,"Email is available");
             return ResponseEntity.ok(response);
