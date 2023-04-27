@@ -22,10 +22,9 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
-    private JavaMailSender javaMailSender;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+
 
     public User findByEmail(String emailString) {
         return userRepository.findByEmail(emailString).orElseThrow(() -> new UserNotFoundException(emailString));
@@ -35,19 +34,20 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public User addUser(ApplicationRequest applicationRequest) {
-        String password = RandomStringUtils.randomAlphanumeric(10);
+    public User addUser(ApplicationRequest applicationRequest, String password) {
         User user = User.builder()
                 .firstName(applicationRequest.getFirstName())
                 .lastName(applicationRequest.getLastName())
                 .email(applicationRequest.getEmail())
                 .password(passwordEncoder.encode(password))
+                .personalNumber(applicationRequest.getPersonalNumber())
+                .phoneNumber(applicationRequest.getPhoneNumber())
+                .address(applicationRequest.getAddress())
                 .role(Role.USER)
                 .build();
 
         try {
             User savedUser = userRepository.save(user);
-            sendTempPasswordByEmail(applicationRequest.getEmail(), password);
 
             return savedUser;
         } catch (DataIntegrityViolationException e) {
@@ -59,12 +59,9 @@ public class UserService {
         }
     }
 
-    private void sendTempPasswordByEmail(String toEmail, String tempPassword) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@shrimp-eating-bankers.com");
-        message.setTo(toEmail);
-        message.setSubject("Temporary Password");
-        message.setText("Your temporary password is: " + tempPassword);
-        javaMailSender.send(message);
+
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 }

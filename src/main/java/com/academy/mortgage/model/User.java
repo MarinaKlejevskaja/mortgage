@@ -31,7 +31,14 @@ public class User implements UserDetails {
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "personal_number")
+    private String personalNumber;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "address")
+    private String address;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
