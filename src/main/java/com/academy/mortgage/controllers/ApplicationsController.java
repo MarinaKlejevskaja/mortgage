@@ -3,6 +3,7 @@ package com.academy.mortgage.controllers;
 import com.academy.mortgage.model.Applications;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
 import com.academy.mortgage.model.api.response.ApplicationsResponse;
+import com.academy.mortgage.model.api.response.UsersApplicationResponse;
 import com.academy.mortgage.services.ApplicationsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,14 @@ public class ApplicationsController {
     @Autowired
     ApplicationsService applicationsService;
 
-    @GetMapping("/applications")
+    @GetMapping("/admin/applications")
     public List<ApplicationsResponse> all() {
         return applicationsService.getApplications();
+    }
+
+    @GetMapping("/auth/applications")
+    public List<UsersApplicationResponse> all(@RequestParam String email){
+        return applicationsService.getApplicationsByUserEmail(email);
     }
 
     @PostMapping("/new-application")
