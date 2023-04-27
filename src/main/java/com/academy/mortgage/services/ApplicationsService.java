@@ -1,10 +1,12 @@
 package com.academy.mortgage.services;
 
+import com.academy.mortgage.exceptions.ApplicationNotFoundException;
 import com.academy.mortgage.exceptions.DuplicateUserException;
 import com.academy.mortgage.exceptions.UserNotFoundException;
 import com.academy.mortgage.model.Applications;
 import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
+import com.academy.mortgage.model.api.request.ApplicationStatusUpdateRequest;
 import com.academy.mortgage.model.api.response.ApplicationsResponse;
 import com.academy.mortgage.model.api.response.UsersApplicationResponse;
 import com.academy.mortgage.model.enums.ApplicationStatus;
@@ -13,7 +15,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -149,6 +150,16 @@ public class ApplicationsService {
             responseList.add(response);
         }
         return responseList;
+    }
+
+    public void updateApplicationStatus(ApplicationStatusUpdateRequest applicationStatusUpdateRequest) {
+        Long applicationId = applicationStatusUpdateRequest.getApplicationId();
+        Applications application = applicationsRepository.findByApplicationId(applicationStatusUpdateRequest.getApplicationId());
+        if(application == null) {
+            throw new ApplicationNotFoundException(applicationId);
+        }
+        application.setApplicationStatus(applicationStatusUpdateRequest.getApplicationStatus());
+        applicationsRepository.save(application);
     }
 }
 

@@ -26,11 +26,12 @@ public class UserService {
 
 
 
-    public User findByEmail(String emailString) {
-        return userRepository.findByEmail(emailString).orElseThrow(() -> new UserNotFoundException(emailString));
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
 
     public Boolean checkEmail(String email) {
+        System.out.println("checkEmail in Service");
         return userRepository.existsByEmail(email);
     }
 

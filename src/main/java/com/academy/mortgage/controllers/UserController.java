@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("users/check-email")
+    @GetMapping("/users/check-email")
     public ResponseEntity<EmailAvailabilityResponse> checkEmailAvailability(@RequestParam String email) {
         boolean exists = userService.checkEmail(email);
         if (exists) {
@@ -30,7 +30,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("users/get-role")
+    @GetMapping("/users/get-role")
     public Role getAllUsers(@RequestParam String email) {
         return userService.findByEmail(email).getRole();
     }
