@@ -4,6 +4,7 @@ import com.academy.mortgage.exceptions.DuplicateUserException;
 import com.academy.mortgage.exceptions.UserNotFoundException;
 import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
+import com.academy.mortgage.model.api.response.UserResponse;
 import com.academy.mortgage.model.enums.Role;
 import com.academy.mortgage.repositories.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -65,5 +66,16 @@ public class UserService {
     }
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+    }
+
+    public UserResponse getUserInfo(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+        return UserResponse.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .address(user.getAddress())
+                .build();
     }
 }
