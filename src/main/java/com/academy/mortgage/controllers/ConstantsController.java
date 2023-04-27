@@ -2,7 +2,6 @@ package com.academy.mortgage.controllers;
 
 import com.academy.mortgage.model.Constants;
 import com.academy.mortgage.model.api.request.ConstantsRequest;
-import com.academy.mortgage.model.api.response.ConstantsResponse;
 import com.academy.mortgage.services.ConstantsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
