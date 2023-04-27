@@ -23,13 +23,17 @@ public class Applications {
     private Long applicationId;
     @JoinColumn(name = "user_id")
     private Long userId;
-    private Long coApplicantId;
+    private String coApplicantEmail;
     private BigDecimal monthlyIncome;
+    private BigDecimal coApplicantsIncome;
+    private BigDecimal totalHouseholdIncome;
     private Boolean obligations;
     private BigDecimal mortgageLoans;
     private BigDecimal consumerLoans;
     private BigDecimal leasingAmount;
     private BigDecimal creditCardLimit;
+    private BigDecimal availableMonthlyPayment;
+    private String realEstateAddress;
     private BigDecimal realEstatePrice;
     private BigDecimal downPayment;
     private BigDecimal loanAmount;
@@ -39,7 +43,7 @@ public class Applications {
     private Integer euriborTerm;
     @Enumerated(EnumType.STRING)
     private PaymentScheduleType paymentScheduleType;
-    private Integer childrenAmount;
+    private Integer amountOfKids;
     private Integer applicantsAmount;
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;

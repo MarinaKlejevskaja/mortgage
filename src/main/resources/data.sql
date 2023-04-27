@@ -1,35 +1,43 @@
 -- DROP TABLE IF EXISTS applications, users, constants CASCADE;
 CREATE TABLE IF NOT EXISTS users
 (
-    id         BIGSERIAL PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NOT NULL,
-    email      VARCHAR(255) NOT NULL UNIQUE,
-    password   VARCHAR(255) NOT NULL,
-    role       VARCHAR(20)  NOT NULL
+    id              BIGSERIAL PRIMARY KEY,
+    first_name      VARCHAR(255) NOT NULL,
+    last_name       VARCHAR(255) NOT NULL,
+    email           VARCHAR(255) NOT NULL UNIQUE,
+    password        VARCHAR(255) NOT NULL,
+    role            VARCHAR(20)  NOT NULL,
+    phone_number    VARCHAR(255),
+    personal_number VARCHAR(255),
+    address         VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS applications
 (
-    id                    BIGSERIAL PRIMARY KEY,
-    user_id               BIGINT         NOT NULL,
-    monthly_income        NUMERIC(12, 2) NOT NULL,
-    obligations           boolean NOT NULL,
-    mortgage_loans        NUMERIC(12, 2),
-    consumer_loans        NUMERIC(12, 2),
-    leasing_amount        NUMERIC(12, 2),
-    credit_card_limit     NUMERIC(12, 2),
-    real_estate_price     NUMERIC(12, 2) NOT NULL,
-    down_payment          NUMERIC(12, 2) NOT NULL,
-    loan_amount           NUMERIC(12, 2) NOT NULL,
-    loan_term             INTEGER        NOT NULL,
-    interest_rate_margin  NUMERIC(5, 4)  NOT NULL,
-    interest_rate_euribor NUMERIC(5, 4)  NOT NULL,
-    euribor_term          INTEGER        NOT NULL,
-    payment_schedule_type VARCHAR(255)   NOT NULL,
-    children_amount       INTEGER        NOT NULL,
-    applicants_amount     INTEGER        NOT NULL,
-    application_status    VARCHAR(255)   NOT NULL,
+    id                        BIGSERIAL PRIMARY KEY,
+    user_id                   BIGINT         NOT NULL,
+    monthly_income            NUMERIC(12, 2) NOT NULL,
+    co_applicants_income      NUMERIC(12, 2),
+    available_monthly_payment NUMERIC(12, 2),
+    total_household_income    NUMERIC(12, 2),
+    obligations               BOOLEAN        NOT NULL,
+    mortgage_loans            NUMERIC(12, 2),
+    consumer_loans            NUMERIC(12, 2),
+    leasing_amount            NUMERIC(12, 2),
+    credit_card_limit         NUMERIC(12, 2),
+    real_estate_price         NUMERIC(12, 2) NOT NULL,
+    down_payment              NUMERIC(12, 2) NOT NULL,
+    loan_amount               NUMERIC(12, 2) NOT NULL,
+    loan_term                 INTEGER        NOT NULL,
+    interest_rate_margin      NUMERIC(5, 4)  NOT NULL,
+    interest_rate_euribor     NUMERIC(5, 4)  NOT NULL,
+    euribor_term              INTEGER        NOT NULL,
+    payment_schedule_type     VARCHAR(255)   NOT NULL,
+    co_applicant_email        VARCHAR(255),
+    amount_of_kids            INTEGER        NOT NULL,
+    applicants_amount         INTEGER        NOT NULL,
+    application_status        VARCHAR(255)   NOT NULL,
+    real_estate_address       VARCHAR(255)   NOT NULL,
     CONSTRAINT fk_applications_users
         FOREIGN KEY (user_id)
             REFERENCES users (id)
