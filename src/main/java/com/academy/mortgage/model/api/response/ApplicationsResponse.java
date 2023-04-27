@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Value
 @Builder
 public class ApplicationsResponse {
-    String[] applicants;
+    Integer applicants;
     Integer amountOfKids;
     BigDecimal monthlyIncome;
     BigDecimal coApplicantsIncome;

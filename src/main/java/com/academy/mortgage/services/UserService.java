@@ -40,6 +40,9 @@ public class UserService {
                 .lastName(applicationRequest.getLastName())
                 .email(applicationRequest.getEmail())
                 .password(passwordEncoder.encode(password))
+                .personalNumber(applicationRequest.getPersonalNumber())
+                .phoneNumber(applicationRequest.getPhoneNumber())
+                .address(applicationRequest.getAddress())
                 .role(Role.USER)
                 .build();
 

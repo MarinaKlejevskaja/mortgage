@@ -34,6 +34,7 @@ public class ApplicationsService {
         for (Applications application : applications) {
             User user = userService.getUserById(application.getUserId());
             ApplicationsResponse response = ApplicationsResponse.builder()
+                    .applicants(application.getApplicantsAmount())
                     .amountOfKids(application.getApplicantsAmount())
                     .monthlyIncome(application.getMonthlyIncome())
                     .coApplicantsIncome(application.getCoApplicantsIncome())
@@ -103,7 +104,6 @@ public class ApplicationsService {
                 .coApplicantEmail(applicationRequest.getCoApplicantEmail())
                 .applicationStatus(ApplicationStatus.RECEIVED)
                 .build();
-
         try {
             Applications applications = applicationsRepository.save(application);
             sendTempPasswordByEmail(applicationRequest.getEmail(), password);

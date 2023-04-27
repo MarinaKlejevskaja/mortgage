@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class ApplicationsController {
     @Autowired
     ApplicationsService applicationsService;
 
-    @GetMapping("auth/applications")
+    @GetMapping("/applications")
     public List<ApplicationsResponse> all() {
         return applicationsService.getApplications();
     }
 
-    @PostMapping("new-application")
+    @PostMapping("/new-application")
     public ResponseEntity<Applications> save(@Valid @RequestBody ApplicationRequest applicationRequest) {
         applicationsService.addApplication(applicationRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
