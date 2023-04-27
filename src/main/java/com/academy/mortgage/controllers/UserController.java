@@ -1,6 +1,7 @@
 package com.academy.mortgage.controllers;
 
 import com.academy.mortgage.model.api.response.EmailAvailabilityResponse;
+import com.academy.mortgage.model.api.response.UserResponse;
 import com.academy.mortgage.model.enums.Role;
 import com.academy.mortgage.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("users/check-email")
+    @GetMapping("/users/check-email")
     public ResponseEntity<EmailAvailabilityResponse> checkEmailAvailability(@RequestParam String email) {
         boolean exists = userService.checkEmail(email);
         if (exists) {
@@ -30,9 +31,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("users/get-role")
+    @GetMapping("/users/get-role")
     public Role getAllUsers(@RequestParam String email) {
         return userService.findByEmail(email).getRole();
+    }
+
+    @GetMapping("/auth/users")
+    public UserResponse getUserInfo(@RequestParam String email) {
+        return userService.getUserInfo(email);
     }
 }
 
