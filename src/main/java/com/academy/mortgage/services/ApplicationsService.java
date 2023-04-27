@@ -36,6 +36,7 @@ public class ApplicationsService {
         for (Applications application : applications) {
             User user = userService.getUserById(application.getUserId());
             ApplicationsResponse response = ApplicationsResponse.builder()
+                    .applicationId(application.getApplicationId())
                     .applicants(application.getApplicantsAmount())
                     .amountOfKids(application.getApplicantsAmount())
                     .monthlyIncome(application.getMonthlyIncome())
