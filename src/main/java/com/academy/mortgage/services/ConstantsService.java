@@ -2,9 +2,12 @@ package com.academy.mortgage.services;
 
 import com.academy.mortgage.exceptions.ConstantsNotFoundException;
 import com.academy.mortgage.model.Constants;
+import com.academy.mortgage.model.api.request.ConstantsRequest;
 import com.academy.mortgage.repositories.ConstantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ConstantsService {
@@ -33,22 +36,40 @@ public class ConstantsService {
         return fallBackConstants;
     }
 
-    public Constants updateConstants(Constants updatedConstants) {
-        return constantsRepository.findById(1)
-                .map(constants -> {
-                    constants.setMinLoanTerm(updatedConstants.getMinLoanTerm());
-                    constants.setMaxLoanTerm(updatedConstants.getMaxLoanTerm());
-                    constants.setMaxNumOfApplicants(updatedConstants.getMaxNumOfApplicants());
-                    constants.setLoanAmountPercentage(updatedConstants.getLoanAmountPercentage());
-                    constants.setInterestRateMargin(updatedConstants.getInterestRateMargin());
-                    constants.setMaxKids(updatedConstants.getMaxKids());
-                    constants.setMinKids(updatedConstants.getMinKids());
-                    constants.setMaxMonthlyObligationsPercentage(updatedConstants.getMaxMonthlyObligationsPercentage());
-                    return constantsRepository.save(constants);
-                })
-                .orElseGet(() -> {
-                    updatedConstants.setId(1); // Set the ID to 1 since you expect only one Constants entry
-                    return constantsRepository.save(updatedConstants);
-                });
+    public Constants updateConstants(ConstantsRequest request) {
+        Constants constants;
+        Optional<Constants> optionalConstants = constantsRepository.findById(1);
+        if (optionalConstants.isPresent()) {
+            constants = optionalConstants.get();
+        } else {
+            constants = fallbackConstants();
+        }
+
+        if (request.getMinLoanTerm() != null) {
+            constants.setMinLoanTerm(request.getMinLoanTerm());
+        }
+        if (request.getMaxLoanTerm() != null) {
+            constants.setMaxLoanTerm(request.getMaxLoanTerm());
+        }
+        if (request.getMaxNumOfApplicants() != null) {
+            constants.setMaxNumOfApplicants(request.getMaxNumOfApplicants());
+        }
+        if (request.getLoanAmountPercentage() != null) {
+            constants.setLoanAmountPercentage(request.getLoanAmountPercentage());
+        }
+        if (request.getInterestRateMargin() != null) {
+            constants.setInterestRateMargin(request.getInterestRateMargin());
+        }
+        if (request.getMaxKids() != null) {
+            constants.setMaxKids(request.getMaxKids());
+        }
+        if (request.getMinKids() != null) {
+            constants.setMinKids(request.getMinKids());
+        }
+        if (request.getMaxMonthlyObligationsPercentage() != null) {
+            constants.setMaxMonthlyObligationsPercentage(request.getMaxMonthlyObligationsPercentage());
+        }
+        constants.setId(1);
+        return constantsRepository.save(constants);
     }
 }
