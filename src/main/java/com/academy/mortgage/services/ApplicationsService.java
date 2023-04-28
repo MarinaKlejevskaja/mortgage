@@ -75,16 +75,17 @@ public class ApplicationsService {
     }
 
     public Applications addApplication(ApplicationRequest applicationRequest) {
-        Long userId;
-        String password = RandomStringUtils.randomAlphanumeric(10);
-        try {
-            userId = userService.addUser(applicationRequest, password).getId();
-        } catch (DuplicateUserException e) {
-            throw e;
+        User user = userService.findByEmail(applicationRequest.getEmail());
+        String password = null;
+        boolean newUser = false;
+        if (user == null) {
+            password = RandomStringUtils.randomAlphanumeric(10);
+            user = userService.addUser(applicationRequest, password);
+            newUser = true;
         }
 
         Applications application = Applications.builder()
-                .userId(userId)
+                .userId(user.getId())
                 .monthlyIncome(applicationRequest.getMonthlyIncome())
                 .coApplicantsIncome(applicationRequest.getCoApplicantsIncome())
                 .totalHouseholdIncome(applicationRequest.getTotalHouseholdIncome())
@@ -110,19 +111,34 @@ public class ApplicationsService {
                 .build();
         try {
             Applications applications = applicationsRepository.save(application);
-            sendTempPasswordByEmail(applicationRequest.getEmail(), password);
+            if (newUser) {
+                sendWelcomeEmail(user.getEmail(), password);
+            }
+            sendApplicationSubmittedEmail(user.getEmail());
             return applications;
         } catch (Exception e) {
+            if (newUser) {
+                userService.deleteUser(user.getId());
+            }
             throw e;
         }
     }
 
-    private void sendTempPasswordByEmail(String toEmail, String tempPassword) {
+    private void sendWelcomeEmail(String toEmail, String tempPassword) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@shrimp-eating-bankers.com");
         message.setTo(toEmail);
-        message.setSubject("Temporary Password");
-        message.setText("Your temporary password is: " + tempPassword);
+        message.setSubject("Welcome to Shrimp Eating Bankers");
+        message.setText("Dear customer,\n\nThank you for creating an account with Shrimp Eating Bankers. Your temporary password is: " + tempPassword + "\n\nPlease use this password to login to your account and set up a new, secure password.\n\nBest regards,\nThe Shrimp Eating Bankers Team");
+        javaMailSender.send(message);
+    }
+
+    private void sendApplicationSubmittedEmail(String toEmail) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@shrimp-eating-bankers.com");
+        message.setTo(toEmail);
+        message.setSubject("Your Loan Application Has Been Submitted");
+        message.setText("Dear customer,\n\nThank you for submitting a loan application with Shrimp Eating Bankers. Our team is currently reviewing your application and will be in touch with you shortly.\n\nBest regards,\nThe Shrimp Eating Bankers Team");
         javaMailSender.send(message);
     }
 
