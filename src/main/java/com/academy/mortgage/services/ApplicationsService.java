@@ -139,7 +139,7 @@ public class ApplicationsService {
         message.setFrom("noreply@shrimp-eating-bankers.com");
         message.setTo(toEmail);
         message.setSubject("Welcome to Shrimp Eating Bankers");
-        message.setText("Dear customer,\n\nThank you for creating an account with Shrimp Eating Bankers. Your temporary password is: " + tempPassword + "\n\nPlease use this password to login to your account and set up a new, secure password.\n\nBest regards,\nThe Shrimp Eating Bankers Team");
+        message.setText("Dear customer,\n\nThank you for creating an account with Shrimp Eating Bankers. \n\nYour temporary password is: " + tempPassword + "\n\nPlease use this password to login to your account and set up a new, secure password.\n\nOur team is currently reviewing your application and will be in touch with you shortly.\n\nBest regards,\nThe Shrimp Eating Bankers Team");
         javaMailSender.send(message);
     }
 
