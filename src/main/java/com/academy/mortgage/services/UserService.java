@@ -18,6 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -80,9 +84,20 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
+
+    public List<Applications> getUserApplications(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get().getApplications();
+        } else {
+            throw new UserNotFoundException("User with ID " + userId + " not found");
+        }
+        
+        
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
+    
 
     public UserResponse getUserInfo(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
@@ -93,5 +108,6 @@ public class UserService {
                 .phoneNumber(user.getPhoneNumber())
                 .address(user.getAddress())
                 .build();
+
     }
 }
