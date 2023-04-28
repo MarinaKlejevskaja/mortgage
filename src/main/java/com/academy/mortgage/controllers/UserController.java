@@ -5,7 +5,6 @@ import com.academy.mortgage.model.api.response.UserResponse;
 import com.academy.mortgage.model.enums.Role;
 import com.academy.mortgage.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +19,9 @@ public class UserController {
 
     @GetMapping("/users/check-email")
     public ResponseEntity<EmailAvailabilityResponse> checkEmailAvailability(@RequestParam String email) {
-        boolean exists = userService.checkEmail(email);
-        if (exists) {
-            EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please sign in to check your application status");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
 
-        } else {
-            EmailAvailabilityResponse response = new EmailAvailabilityResponse(true,"Email is available");
-            return ResponseEntity.ok(response);
-        }
+        ResponseEntity<EmailAvailabilityResponse> response = userService.checkEmail(email);
+        return response;
     }
 
     @GetMapping("/users/get-role")
