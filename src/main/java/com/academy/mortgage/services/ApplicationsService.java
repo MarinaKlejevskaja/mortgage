@@ -1,17 +1,20 @@
 package com.academy.mortgage.services;
 
+import com.academy.mortgage.exceptions.ApplicationNotFoundException;
 import com.academy.mortgage.exceptions.DuplicateUserException;
+import com.academy.mortgage.exceptions.UserNotFoundException;
 import com.academy.mortgage.model.Applications;
 import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
+import com.academy.mortgage.model.api.request.ApplicationStatusUpdateRequest;
 import com.academy.mortgage.model.api.response.ApplicationsResponse;
+import com.academy.mortgage.model.api.response.UsersApplicationResponse;
 import com.academy.mortgage.model.enums.ApplicationStatus;
 import com.academy.mortgage.repositories.ApplicationsRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ public class ApplicationsService {
         for (Applications application : applications) {
             User user = userService.getUserById(application.getUserId());
             ApplicationsResponse response = ApplicationsResponse.builder()
+                    .applicationId(application.getApplicationId())
                     .applicants(application.getApplicantsAmount())
                     .amountOfKids(application.getApplicantsAmount())
                     .monthlyIncome(application.getMonthlyIncome())
@@ -74,7 +78,7 @@ public class ApplicationsService {
         Long userId;
         String password = RandomStringUtils.randomAlphanumeric(10);
         try {
-            userId = userService.addUser(applicationRequest,password).getId();
+            userId = userService.addUser(applicationRequest, password).getId();
         } catch (DuplicateUserException e) {
             throw e;
         }
@@ -108,7 +112,7 @@ public class ApplicationsService {
             Applications applications = applicationsRepository.save(application);
             sendTempPasswordByEmail(applicationRequest.getEmail(), password);
             return applications;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
@@ -121,4 +125,49 @@ public class ApplicationsService {
         message.setText("Your temporary password is: " + tempPassword);
         javaMailSender.send(message);
     }
+
+    public List<UsersApplicationResponse> getApplicationsByUserEmail(String email) {
+        Long userId = userService.getUserByEmail(email).getId();
+        if (userId == null) {
+            throw new UserNotFoundException(email);
+        }
+        List<Applications> applications = applicationsRepository.findAllByUserId(userId);
+        List<UsersApplicationResponse> responseList = new ArrayList<>();
+        for (Applications application : applications) {
+            UsersApplicationResponse response = UsersApplicationResponse.builder()
+                    .applicationId(application.getApplicationId())
+                    .realEstateAddress(application.getRealEstateAddress())
+                    .realEstatePrice(application.getRealEstatePrice())
+                    .downPayment(application.getDownPayment())
+                    .loanAmount(application.getLoanAmount())
+                    .loanTerm(application.getLoanTerm())
+                    .paymentScheduleType(application.getPaymentScheduleType())
+                    .euriborTerm(application.getEuriborTerm())
+                    .interestRateEuribor(application.getInterestRateEuribor())
+                    .applicationStatus(application.getApplicationStatus())
+                    .build();
+
+            responseList.add(response);
+        }
+        return responseList;
+    }
+
+    public void updateApplicationStatus(ApplicationStatusUpdateRequest applicationStatusUpdateRequest) {
+        Long applicationId = applicationStatusUpdateRequest.getApplicationId();
+        Applications application = applicationsRepository.findByApplicationId(applicationStatusUpdateRequest.getApplicationId());
+        if(application == null) {
+            throw new ApplicationNotFoundException(applicationId);
+        }
+        application.setApplicationStatus(applicationStatusUpdateRequest.getApplicationStatus());
+        applicationsRepository.save(application);
+    }
+
+    public Boolean checkUserHasApplication(Long id) {
+        Applications application = applicationsRepository.findByUserId(id);
+        if(application == null) {
+           return false;
+        }
+        return true;
+    }
 }
+

@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @Value
 @Builder
 public class ApplicationsResponse {
+    Long applicationId;
     Integer applicants;
     Integer amountOfKids;
     BigDecimal monthlyIncome;
