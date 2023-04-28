@@ -128,9 +128,7 @@ public class ApplicationsService {
             sendApplicationSubmittedEmail(user.getEmail());
             return applications;
         } catch (Exception e) {
-            if (newUser) {
-                userService.deleteUser(user.getId());
-            }
+            System.out.println("Unexpected error occurred while saving application: " + e.getMessage());
             throw e;
         }
     }
