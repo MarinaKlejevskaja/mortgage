@@ -82,6 +82,12 @@ public class ApplicationsService {
             password = RandomStringUtils.randomAlphanumeric(10);
             user = userService.addUser(applicationRequest, password);
             newUser = true;
+        }else{
+            user.setFirstName(applicationRequest.getFirstName());
+            user.setLastName(applicationRequest.getLastName());
+            user.setPhoneNumber(applicationRequest.getPhoneNumber());
+            user.setPersonalNumber(applicationRequest.getPersonalNumber());
+            userService.updateUser(user);
         }
 
         Applications application = Applications.builder()
