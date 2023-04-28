@@ -20,7 +20,7 @@ public class ConstantsController {
         return new ResponseEntity<>(constants, HttpStatus.OK);
     }
 
-    @PutMapping("/auth/constants")
+    @PutMapping("/admin/constants")
     public ResponseEntity<Constants> updateConstants(@RequestBody ConstantsRequest updatedConstants) {
         Constants constants = constantsService.updateConstants(updatedConstants);
         return new ResponseEntity<>(constants, HttpStatus.OK);
