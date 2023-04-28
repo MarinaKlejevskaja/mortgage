@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApplicationsService {
@@ -75,19 +76,23 @@ public class ApplicationsService {
     }
 
     public Applications addApplication(ApplicationRequest applicationRequest) {
-        User user = userService.findByEmail(applicationRequest.getEmail());
+
+        User user = null;
         String password = null;
         boolean newUser = false;
-        if (user == null) {
-            password = RandomStringUtils.randomAlphanumeric(10);
-            user = userService.addUser(applicationRequest, password);
-            newUser = true;
-        }else{
+
+        try{
+            user = userService.getUserByEmail(applicationRequest.getEmail());
             user.setFirstName(applicationRequest.getFirstName());
             user.setLastName(applicationRequest.getLastName());
             user.setPhoneNumber(applicationRequest.getPhoneNumber());
             user.setPersonalNumber(applicationRequest.getPersonalNumber());
             userService.updateUser(user);
+
+        } catch (UserNotFoundException e) {
+            password = RandomStringUtils.randomAlphanumeric(10);
+            user = userService.addUser(applicationRequest, password);
+            newUser = true;
         }
 
         Applications application = Applications.builder()
