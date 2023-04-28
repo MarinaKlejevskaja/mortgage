@@ -92,7 +92,7 @@ public class UserService {
         } else {
             throw new UserNotFoundException("User with ID " + userId + " not found");
         }
-        
+    }    
         
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
