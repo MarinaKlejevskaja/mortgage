@@ -44,7 +44,7 @@ public class UserService {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
 
             } else {
-                EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have an account. Please sign in to submit application");
+                EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have an account. Please sign in before proceeding");
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
             }
         }
