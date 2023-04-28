@@ -161,5 +161,13 @@ public class ApplicationsService {
         application.setApplicationStatus(applicationStatusUpdateRequest.getApplicationStatus());
         applicationsRepository.save(application);
     }
+
+    public Boolean checkUserHasApplication(Long id) {
+        Applications application = applicationsRepository.findByUserId(id);
+        if(application == null) {
+           return false;
+        }
+        return true;
+    }
 }
 

@@ -11,4 +11,5 @@ public interface ApplicationsRepository extends JpaRepository<Applications, Long
     List<Applications> findAll();
     List<Applications> findAllByUserId(Long userId);
     Applications findByApplicationId(Long applicationId);
+    Applications findByUserId(Long userId);
 }

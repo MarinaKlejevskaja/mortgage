@@ -4,15 +4,15 @@ import com.academy.mortgage.exceptions.DuplicateUserException;
 import com.academy.mortgage.exceptions.UserNotFoundException;
 import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
+import com.academy.mortgage.model.api.response.EmailAvailabilityResponse;
 import com.academy.mortgage.model.api.response.UserResponse;
 import com.academy.mortgage.model.enums.Role;
 import com.academy.mortgage.repositories.UserRepository;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +23,31 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
+    ApplicationsService applicationsService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
-
 
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
 
-    public Boolean checkEmail(String email) {
-        System.out.println("checkEmail in Service");
-        return userRepository.existsByEmail(email);
+    public ResponseEntity<EmailAvailabilityResponse> checkEmail(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null) {
+            EmailAvailabilityResponse response = new EmailAvailabilityResponse(true,"Email is available");
+            return ResponseEntity.ok(response);
+        }else {
+            Boolean userHasApplication = applicationsService.checkUserHasApplication(user.getId());
+            if (userHasApplication) {
+                EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please sign in to check your application status");
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+
+            } else {
+                EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have an account. Please sign in to submit application");
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+            }
+        }
     }
 
     public User addUser(ApplicationRequest applicationRequest, String password) {
@@ -64,6 +78,7 @@ public class UserService {
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
+
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
