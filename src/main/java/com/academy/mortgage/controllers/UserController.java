@@ -22,7 +22,7 @@ public class UserController {
     public ResponseEntity<EmailAvailabilityResponse> checkEmailAvailability(@RequestParam String email) {
         boolean exists = userService.checkEmail(email);
         if (exists) {
-            EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please log it to check your application status");
+            EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please sign in to check your application status");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
 
         } else {
