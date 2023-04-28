@@ -35,6 +35,8 @@ public class SecurityConfiguration {
                 .permitAll()
                 .requestMatchers("/api/v1/users/check-email")
                 .permitAll()
+                .requestMatchers("/users/{userId}/applications")
+                .permitAll()
                 .requestMatchers("/api/v1/users/get-role")
                 .permitAll()
                 .requestMatchers("/api/admin/**")
