@@ -2,11 +2,13 @@ package com.academy.mortgage.services;
 
 import com.academy.mortgage.exceptions.DuplicateUserException;
 import com.academy.mortgage.exceptions.UserNotFoundException;
+import com.academy.mortgage.model.Applications;
 import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.request.ApplicationRequest;
 import com.academy.mortgage.model.api.response.EmailAvailabilityResponse;
 import com.academy.mortgage.model.api.response.UserResponse;
 import com.academy.mortgage.model.enums.Role;
+import com.academy.mortgage.repositories.ApplicationsRepository;
 import com.academy.mortgage.repositories.UserRepository;
 import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
-    ApplicationsService applicationsService;
+    ApplicationsRepository applicationsRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -35,18 +37,17 @@ public class UserService {
     public ResponseEntity<EmailAvailabilityResponse> checkEmail(String email) {
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
-            EmailAvailabilityResponse response = new EmailAvailabilityResponse(true,"Email is available");
+            EmailAvailabilityResponse response = new EmailAvailabilityResponse(true, "Email is available");
             return ResponseEntity.ok(response);
-        }else {
-            Boolean userHasApplication = applicationsService.checkUserHasApplication(user.getId());
-            if (userHasApplication) {
-                EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have submitted application. Please sign in to check your application status");
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-
+        } else {
+            Applications userHasApplication = applicationsRepository.findByUserId(user.getId());
+            EmailAvailabilityResponse response;
+            if(userHasApplication == null) {
+                response = new EmailAvailabilityResponse(false, "Looks like you already have an account. Please sign in before proceeding");
             } else {
-                EmailAvailabilityResponse response = new EmailAvailabilityResponse(false,"Looks like you already have an account. Please sign in before proceeding");
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+                response = new EmailAvailabilityResponse(false, "Looks like you already have submitted application. Please sign in to check your application status");
             }
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
     }
 
