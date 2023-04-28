@@ -124,8 +124,9 @@ public class ApplicationsService {
             Applications applications = applicationsRepository.save(application);
             if (newUser) {
                 sendWelcomeEmail(user.getEmail(), password);
+            }else{
+                sendApplicationSubmittedEmail(user.getEmail());
             }
-            sendApplicationSubmittedEmail(user.getEmail());
             return applications;
         } catch (Exception e) {
             System.out.println("Unexpected error occurred while saving application: " + e.getMessage());
