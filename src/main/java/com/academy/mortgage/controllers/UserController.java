@@ -26,27 +26,10 @@ public class UserController {
         return response;
     }
 
-
     @GetMapping("/users/get-role")
     public Role getAllUsers(@RequestParam String email) {
         return userService.findByEmail(email).getRole();
     }
-    //    @GetMapping("/user/id/{userId}/application")
-//        public List<Applications> getApplicationForEmail(@PathVariable Long userId) {
-//        User user = userService.getUserById(userId);
-//        if (user == null) {
-//            throw new UserNotFoundException(userId);
-//        }
-//        return user.getApplications();
-//    }
-//    @GetMapping("/user/email/{userEmail}/application")
-//    public List<Applications> getApplicationForEmail(@PathVariable String userEmail) {
-//        User user = userService.findByEmail(userEmail);
-//        if (user == null) {
-//            throw new UserNotFoundException(userEmail);
-//        }
-//        return user.getApplications();
-//    }
 
     @GetMapping("/user/id/{userId}/applications")
     public List<UsersApplicationResponse> getAllApplicationsByUserId(@PathVariable Long userId) {
