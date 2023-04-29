@@ -7,6 +7,7 @@ import com.academy.mortgage.repositories.ConstantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -55,10 +56,12 @@ public class ConstantsService {
             constants.setMaxNumOfApplicants(request.getMaxNumOfApplicants());
         }
         if (request.getLoanAmountPercentage() != null) {
-            constants.setLoanAmountPercentage(request.getLoanAmountPercentage());
+            Float loanAmountPercentage = request.getLoanAmountPercentage()/100;
+            constants.setLoanAmountPercentage(loanAmountPercentage);
         }
         if (request.getInterestRateMargin() != null) {
-            constants.setInterestRateMargin(request.getInterestRateMargin());
+            Float interestRateMargin = request.getInterestRateMargin()/100;
+            constants.setInterestRateMargin(interestRateMargin);
         }
         if (request.getMaxKids() != null) {
             constants.setMaxKids(request.getMaxKids());
@@ -67,7 +70,8 @@ public class ConstantsService {
             constants.setMinKids(request.getMinKids());
         }
         if (request.getMaxMonthlyObligationsPercentage() != null) {
-            constants.setMaxMonthlyObligationsPercentage(request.getMaxMonthlyObligationsPercentage());
+            Float maxMonthlyObligationsPercentage = request.getMaxMonthlyObligationsPercentage()/100;
+            constants.setMaxMonthlyObligationsPercentage(maxMonthlyObligationsPercentage);
         }
         constants.setId(1);
         return constantsRepository.save(constants);
