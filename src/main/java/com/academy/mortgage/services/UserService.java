@@ -118,4 +118,9 @@ public class UserService {
     public void updateUser(User user) {
         userRepository.save(user);
     }
+
+    public String getPersonalNumber(String email) {
+       User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+       return user.getPersonalNumber();
+    }
 }

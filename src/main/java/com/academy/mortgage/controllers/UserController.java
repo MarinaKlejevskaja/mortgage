@@ -45,6 +45,10 @@ public class UserController {
     public UserResponse getUserInfo(@RequestParam String email) {
         return userService.getUserInfo(email);
     }
+    @GetMapping("/auth/users/personal-number")
+    public String getPersonalNumber(@RequestParam String email) {
+        return userService.getPersonalNumber(email);
+    }
 }
 
 
