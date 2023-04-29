@@ -1,11 +1,10 @@
 package com.academy.mortgage.controllers;
 
-import com.academy.mortgage.exceptions.UserNotFoundException;
-import com.academy.mortgage.model.Applications;
-import com.academy.mortgage.model.User;
 import com.academy.mortgage.model.api.response.EmailAvailabilityResponse;
 import com.academy.mortgage.model.api.response.UserResponse;
+import com.academy.mortgage.model.api.response.UsersApplicationResponse;
 import com.academy.mortgage.model.enums.Role;
+import com.academy.mortgage.services.ApplicationsService;
 import com.academy.mortgage.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    ApplicationsService applicationsService;
 
     @GetMapping("/users/check-email")
     public ResponseEntity<EmailAvailabilityResponse> checkEmailAvailability(@RequestParam String email) {
@@ -30,30 +31,37 @@ public class UserController {
     public Role getAllUsers(@RequestParam String email) {
         return userService.findByEmail(email).getRole();
     }
+    //    @GetMapping("/user/id/{userId}/application")
+//        public List<Applications> getApplicationForEmail(@PathVariable Long userId) {
+//        User user = userService.getUserById(userId);
+//        if (user == null) {
+//            throw new UserNotFoundException(userId);
+//        }
+//        return user.getApplications();
+//    }
+//    @GetMapping("/user/email/{userEmail}/application")
+//    public List<Applications> getApplicationForEmail(@PathVariable String userEmail) {
+//        User user = userService.findByEmail(userEmail);
+//        if (user == null) {
+//            throw new UserNotFoundException(userEmail);
+//        }
+//        return user.getApplications();
+//    }
 
-    @GetMapping("/user/id/{userId}/application")
-        public List<Applications> getApplicationForEmail(@PathVariable Long userId) {
-        User user = userService.getUserById(userId);
-        if (user == null) {
-            throw new UserNotFoundException(userId);
-        }
-        return user.getApplications();
+    @GetMapping("/user/id/{userId}/applications")
+    public List<UsersApplicationResponse> getAllApplicationsByUserId(@PathVariable Long userId) {
+        return applicationsService.getApplicationsByUserId(userId);
     }
 
-    @GetMapping("/user/email/{userEmail}/application")
-    public List<Applications> getApplicationForEmail(@PathVariable String userEmail) {
-        User user = userService.findByEmail(userEmail);
-        if (user == null) {
-            throw new UserNotFoundException(userEmail);
-        }
-        return user.getApplications();
-}
+    @GetMapping("/user/email/{userEmail}/applications")
+    public List<UsersApplicationResponse> getAllApplicationsByUserEmail(@PathVariable String userEmail) {
+        return applicationsService.getApplicationsByUserEmail(userEmail);
+    }
 
     @GetMapping("/auth/users")
     public UserResponse getUserInfo(@RequestParam String email) {
         return userService.getUserInfo(email);
     }
-
 }
 
 
