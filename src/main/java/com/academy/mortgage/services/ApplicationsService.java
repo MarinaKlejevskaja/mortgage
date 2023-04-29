@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApplicationsService {
@@ -75,16 +76,27 @@ public class ApplicationsService {
     }
 
     public Applications addApplication(ApplicationRequest applicationRequest) {
-        Long userId;
-        String password = RandomStringUtils.randomAlphanumeric(10);
-        try {
-            userId = userService.addUser(applicationRequest, password).getId();
-        } catch (DuplicateUserException e) {
-            throw e;
+
+        User user = null;
+        String password = null;
+        boolean newUser = false;
+
+        try{
+            user = userService.getUserByEmail(applicationRequest.getEmail());
+            user.setFirstName(applicationRequest.getFirstName());
+            user.setLastName(applicationRequest.getLastName());
+            user.setPhoneNumber(applicationRequest.getPhoneNumber());
+            user.setPersonalNumber(applicationRequest.getPersonalNumber());
+            userService.updateUser(user);
+
+        } catch (UserNotFoundException e) {
+            password = RandomStringUtils.randomAlphanumeric(10);
+            user = userService.addUser(applicationRequest, password);
+            newUser = true;
         }
 
         Applications application = Applications.builder()
-                .userId(userId)
+                .userId(user.getId())
                 .monthlyIncome(applicationRequest.getMonthlyIncome())
                 .coApplicantsIncome(applicationRequest.getCoApplicantsIncome())
                 .totalHouseholdIncome(applicationRequest.getTotalHouseholdIncome())
@@ -110,19 +122,33 @@ public class ApplicationsService {
                 .build();
         try {
             Applications applications = applicationsRepository.save(application);
-            sendTempPasswordByEmail(applicationRequest.getEmail(), password);
+            if (newUser) {
+                sendWelcomeEmail(user.getEmail(), password);
+            }else{
+                sendApplicationSubmittedEmail(user.getEmail());
+            }
             return applications;
         } catch (Exception e) {
+            System.out.println("Unexpected error occurred while saving application: " + e.getMessage());
             throw e;
         }
     }
 
-    private void sendTempPasswordByEmail(String toEmail, String tempPassword) {
+    private void sendWelcomeEmail(String toEmail, String tempPassword) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@shrimp-eating-bankers.com");
         message.setTo(toEmail);
-        message.setSubject("Temporary Password");
-        message.setText("Your temporary password is: " + tempPassword);
+        message.setSubject("Welcome to Shrimp Eating Bankers");
+        message.setText("Dear customer,\n\nThank you for creating an account with Shrimp Eating Bankers. \n\nYour temporary password is: " + tempPassword + "\n\nPlease use this password to login to your account and set up a new, secure password.\n\nOur team is currently reviewing your application and will be in touch with you shortly.\n\nBest regards,\nThe Shrimp Eating Bankers Team");
+        javaMailSender.send(message);
+    }
+
+    private void sendApplicationSubmittedEmail(String toEmail) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@shrimp-eating-bankers.com");
+        message.setTo(toEmail);
+        message.setSubject("Your Loan Application Has Been Submitted");
+        message.setText("Dear customer,\n\nThank you for submitting a loan application with Shrimp Eating Bankers. Our team is currently reviewing your application and will be in touch with you shortly.\n\nBest regards,\nThe Shrimp Eating Bankers Team");
         javaMailSender.send(message);
     }
 

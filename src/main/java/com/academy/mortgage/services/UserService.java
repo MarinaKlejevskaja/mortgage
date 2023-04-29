@@ -110,4 +110,12 @@ public class UserService {
                 .build();
 
     }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
 }
