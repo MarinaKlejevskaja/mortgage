@@ -188,14 +188,6 @@ public class ApplicationsService {
         applicationsRepository.save(application);
     }
 
-    public Boolean checkUserHasApplication(Long id) {
-        Applications application = applicationsRepository.findByUserId(id);
-        if(application == null) {
-           return false;
-        }
-        return true;
-    }
-
     public List<UsersApplicationResponse> getApplicationsByUserId(Long userId) {
         userService.getUserById(userId).getId();
         if (userId == null) {
