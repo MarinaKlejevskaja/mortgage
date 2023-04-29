@@ -195,5 +195,31 @@ public class ApplicationsService {
         }
         return true;
     }
+
+    public List<UsersApplicationResponse> getApplicationsByUserId(Long userId) {
+        userService.getUserById(userId).getId();
+        if (userId == null) {
+            throw new UserNotFoundException(userId);
+        }
+        List<Applications> applications = applicationsRepository.findAllByUserId(userId);
+        List<UsersApplicationResponse> responseList = new ArrayList<>();
+        for (Applications application : applications) {
+            UsersApplicationResponse response = UsersApplicationResponse.builder()
+                    .applicationId(application.getApplicationId())
+                    .realEstateAddress(application.getRealEstateAddress())
+                    .realEstatePrice(application.getRealEstatePrice())
+                    .downPayment(application.getDownPayment())
+                    .loanAmount(application.getLoanAmount())
+                    .loanTerm(application.getLoanTerm())
+                    .paymentScheduleType(application.getPaymentScheduleType())
+                    .euriborTerm(application.getEuriborTerm())
+                    .interestRateEuribor(application.getInterestRateEuribor())
+                    .applicationStatus(application.getApplicationStatus())
+                    .build();
+
+            responseList.add(response);
+        }
+        return responseList;
+    }
 }
 
