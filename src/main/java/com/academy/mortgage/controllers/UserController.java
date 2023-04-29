@@ -31,7 +31,7 @@ public class UserController {
         return userService.findByEmail(email).getRole();
     }
 
-    @GetMapping("/user/{userId}/application")
+    @GetMapping("/user/id/{userId}/application")
         public List<Applications> getApplicationForEmail(@PathVariable Long userId) {
         User user = userService.getUserById(userId);
         if (user == null) {
@@ -40,7 +40,7 @@ public class UserController {
         return user.getApplications();
     }
 
-    @GetMapping("/user/{userEmail}/application")
+    @GetMapping("/user/email/{userEmail}/application")
     public List<Applications> getApplicationForEmail(@PathVariable String userEmail) {
         User user = userService.findByEmail(userEmail);
         if (user == null) {
