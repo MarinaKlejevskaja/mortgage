@@ -121,7 +121,13 @@ public class UserService {
     }
 
     public Long getPersonalNumber(String email) {
-       User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
-       return Long.parseLong(user.getPersonalNumber());
+       User user = userRepository.findByEmail(email).orElse(null);
+       if(user != null) {
+           String personalNumber = user.getPersonalNumber();
+           if(personalNumber != null) {
+               return Long.parseLong(personalNumber);
+           }
+       }
+       return null;
     }
 }
