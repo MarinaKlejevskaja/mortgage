@@ -46,7 +46,7 @@ public class UserController {
         return userService.getUserInfo(email);
     }
     @GetMapping("/auth/users/personal-number")
-    public String getPersonalNumber(@RequestParam String email) {
+    public Long getPersonalNumber(@RequestParam String email) {
         return userService.getPersonalNumber(email);
     }
 }
