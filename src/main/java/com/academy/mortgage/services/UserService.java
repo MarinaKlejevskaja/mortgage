@@ -44,9 +44,9 @@ public class UserService {
             EmailAvailabilityResponse response = new EmailAvailabilityResponse(true, "Email is available");
             return ResponseEntity.ok(response);
         } else {
-            Applications userHasApplication = applicationsRepository.findByUserId(user.getId());
+            List<Applications> userHasApplications = applicationsRepository.findByUserId(user.getId());
             EmailAvailabilityResponse response;
-            if(userHasApplication == null) {
+            if(userHasApplications.isEmpty()) {
                 response = new EmailAvailabilityResponse(false, "Looks like you already have an account. Please sign in before proceeding");
             } else {
                 response = new EmailAvailabilityResponse(false, "Looks like you already have submitted application. Please sign in to check your application status");
