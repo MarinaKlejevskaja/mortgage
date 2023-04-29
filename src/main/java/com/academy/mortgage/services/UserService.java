@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -117,5 +118,16 @@ public class UserService {
 
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    public Long getPersonalNumber(String email) {
+       User user = userRepository.findByEmail(email).orElse(null);
+       if(user != null) {
+           String personalNumber = user.getPersonalNumber();
+           if(personalNumber != null) {
+               return Long.parseLong(personalNumber);
+           }
+       }
+       return null;
     }
 }
