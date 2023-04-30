@@ -1,9 +1,6 @@
 package com.academy.mortgage.exceptions.handlers;
 
-import com.academy.mortgage.exceptions.ApplicationNotFoundException;
-import com.academy.mortgage.exceptions.ConstantsNotFoundException;
-import com.academy.mortgage.exceptions.DuplicateUserException;
-import com.academy.mortgage.exceptions.UserNotFoundException;
+import com.academy.mortgage.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -36,4 +33,13 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(MailNotSentException.class)
+    public ResponseEntity<String> handleMailNotSentException(MailNotSentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ApplicationNotSavedException.class)
+    public ResponseEntity<String> handleApplicationNotSavedException(ApplicationNotSavedException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
