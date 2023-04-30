@@ -39,7 +39,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(ApplicationNotSavedException.class)
-    public ResponseEntity<String> handleApplicationNotSavedException(MailNotSentException ex) {
+    public ResponseEntity<String> handleApplicationNotSavedException(ApplicationNotSavedException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

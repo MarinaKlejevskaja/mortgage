@@ -88,6 +88,7 @@ public class ApplicationsService {
             user.setLastName(applicationRequest.getLastName());
             user.setPhoneNumber(applicationRequest.getPhoneNumber());
             user.setPersonalNumber(applicationRequest.getPersonalNumber());
+            user.setAddress(applicationRequest.getAddress());
             userService.updateUser(user);
 
         } catch (UserNotFoundException e) {
