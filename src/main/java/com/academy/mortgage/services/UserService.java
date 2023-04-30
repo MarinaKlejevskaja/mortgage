@@ -102,14 +102,15 @@ public class UserService {
 
     public UserResponse getUserInfo(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+        Long personalNumber = user.getPersonalNumber() != null ? Long.parseLong(user.getPersonalNumber()) : null;
         return UserResponse.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .address(user.getAddress())
+                .personalNumber(personalNumber)
                 .build();
-
     }
 
     public void deleteUser(Long id) {
