@@ -11,5 +11,5 @@ public class UserResponse {
     String email;
     String phoneNumber;
     String address;
-
+    Long personalNumber;
 }
