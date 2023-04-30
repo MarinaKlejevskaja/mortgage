@@ -101,7 +101,7 @@ public class ApplicationRequest {
     private BigDecimal realEstatePrice;
 
     @NotNull
-    @Positive
+    @PositiveOrZero
     @Schema(description = "Down payment amount", example = "20000.0")
     private BigDecimal downPayment;
 
