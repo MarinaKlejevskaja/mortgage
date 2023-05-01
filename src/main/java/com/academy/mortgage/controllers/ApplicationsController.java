@@ -26,7 +26,7 @@ public class ApplicationsController {
     }
 
     @GetMapping("/auth/applications")
-    public List<UsersApplicationResponse> all(@RequestParam String email) {
+    public List<ApplicationsResponse> all(@RequestParam String email) {
         return applicationsService.getApplicationsByUserEmail(email);
     }
 
