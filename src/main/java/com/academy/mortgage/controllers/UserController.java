@@ -1,5 +1,6 @@
 package com.academy.mortgage.controllers;
 
+import com.academy.mortgage.model.api.response.ApplicationsResponse;
 import com.academy.mortgage.model.api.response.EmailAvailabilityResponse;
 import com.academy.mortgage.model.api.response.UserResponse;
 import com.academy.mortgage.model.api.response.UsersApplicationResponse;
@@ -32,12 +33,12 @@ public class UserController {
     }
 
     @GetMapping("/user/id/{userId}/applications")
-    public List<UsersApplicationResponse> getAllApplicationsByUserId(@PathVariable Long userId) {
+    public List<ApplicationsResponse> getAllApplicationsByUserId(@PathVariable Long userId) {
         return applicationsService.getApplicationsByUserId(userId);
     }
 
     @GetMapping("/user/email/{userEmail}/applications")
-    public List<UsersApplicationResponse> getAllApplicationsByUserEmail(@PathVariable String userEmail) {
+    public List<ApplicationsResponse> getAllApplicationsByUserEmail(@PathVariable String userEmail) {
         return applicationsService.getApplicationsByUserEmail(userEmail);
     }
 

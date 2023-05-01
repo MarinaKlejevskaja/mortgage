@@ -38,38 +38,7 @@ public class ApplicationsService {
 
         for (Applications application : applications) {
             User user = userService.getUserById(application.getUserId());
-            ApplicationsResponse response = ApplicationsResponse.builder()
-                    .applicationId(application.getApplicationId())
-                    .applicants(application.getApplicantsAmount())
-                    .amountOfKids(application.getApplicantsAmount())
-                    .monthlyIncome(application.getMonthlyIncome())
-                    .coApplicantsIncome(application.getCoApplicantsIncome())
-                    .obligations(application.getObligations())
-                    .mortgageLoans(application.getMortgageLoans())
-                    .consumerLoans(application.getConsumerLoans())
-                    .leasingAmount(application.getLeasingAmount())
-                    .creditCardLimit(application.getCreditCardLimit())
-                    .monthlyPayment(application.getAvailableMonthlyPayment())
-                    .realEstateAddress(application.getRealEstateAddress())
-                    .realEstatePrice(application.getRealEstatePrice())
-                    .downPayment(application.getDownPayment())
-                    .loanAmount(application.getLoanAmount())
-                    .loanTerm(application.getLoanTerm())
-                    .paymentScheduleType(application.getPaymentScheduleType())
-                    .interestRateMargin(application.getInterestRateMargin())
-                    .euriborTerm(application.getEuriborTerm())
-                    .interestRateEuribor(application.getInterestRateEuribor())
-                    .totalHouseholdIncome(application.getTotalHouseholdIncome())
-                    .coApplicantEmail(application.getCoApplicantEmail())
-                    .applicationStatus(application.getApplicationStatus())
-                    .firstName(user.getFirstName())
-                    .lastName(user.getLastName())
-                    .personalNumber(user.getPersonalNumber())
-                    .email(user.getEmail())
-                    .phoneNumber(user.getPhoneNumber())
-                    .address(user.getAddress())
-                    .build();
-
+            ApplicationsResponse response = buildApplicationsResponse(application, user);
             responseList.add(response);
         }
 
@@ -160,27 +129,17 @@ public class ApplicationsService {
         javaMailSender.send(message);
     }
 
-    public List<UsersApplicationResponse> getApplicationsByUserEmail(String email) {
-        Long userId = userService.getUserByEmail(email).getId();
-        if (userId == null) {
+    public List<ApplicationsResponse> getApplicationsByUserEmail(String email) {
+        User user = userService.getUserByEmail(email);
+
+        if (user == null) {
             throw new UserNotFoundException(email);
         }
+        Long userId = user.getId();
         List<Applications> applications = applicationsRepository.findAllByUserId(userId);
-        List<UsersApplicationResponse> responseList = new ArrayList<>();
+        List<ApplicationsResponse> responseList = new ArrayList<>();
         for (Applications application : applications) {
-            UsersApplicationResponse response = UsersApplicationResponse.builder()
-                    .applicationId(application.getApplicationId())
-                    .realEstateAddress(application.getRealEstateAddress())
-                    .realEstatePrice(application.getRealEstatePrice())
-                    .downPayment(application.getDownPayment())
-                    .loanAmount(application.getLoanAmount())
-                    .loanTerm(application.getLoanTerm())
-                    .paymentScheduleType(application.getPaymentScheduleType())
-                    .euriborTerm(application.getEuriborTerm())
-                    .interestRateEuribor(application.getInterestRateEuribor())
-                    .applicationStatus(application.getApplicationStatus())
-                    .build();
-
+            ApplicationsResponse response = buildApplicationsResponse(application, user);
             responseList.add(response);
         }
         return responseList;
@@ -196,30 +155,53 @@ public class ApplicationsService {
         applicationsRepository.save(application);
     }
 
-    public List<UsersApplicationResponse> getApplicationsByUserId(Long userId) {
-        userService.getUserById(userId).getId();
-        if (userId == null) {
+    public List<ApplicationsResponse> getApplicationsByUserId(Long userId) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
             throw new UserNotFoundException(userId);
         }
         List<Applications> applications = applicationsRepository.findAllByUserId(userId);
-        List<UsersApplicationResponse> responseList = new ArrayList<>();
+        List<ApplicationsResponse> responseList = new ArrayList<>();
         for (Applications application : applications) {
-            UsersApplicationResponse response = UsersApplicationResponse.builder()
-                    .applicationId(application.getApplicationId())
-                    .realEstateAddress(application.getRealEstateAddress())
-                    .realEstatePrice(application.getRealEstatePrice())
-                    .downPayment(application.getDownPayment())
-                    .loanAmount(application.getLoanAmount())
-                    .loanTerm(application.getLoanTerm())
-                    .paymentScheduleType(application.getPaymentScheduleType())
-                    .euriborTerm(application.getEuriborTerm())
-                    .interestRateEuribor(application.getInterestRateEuribor())
-                    .applicationStatus(application.getApplicationStatus())
-                    .build();
-
+            ApplicationsResponse response = buildApplicationsResponse(application, user);
             responseList.add(response);
         }
         return responseList;
     }
+
+    private ApplicationsResponse buildApplicationsResponse(Applications application, User user) {
+        return ApplicationsResponse.builder()
+                .applicationId(application.getApplicationId())
+                .applicants(application.getApplicantsAmount())
+                .amountOfKids(application.getApplicantsAmount())
+                .monthlyIncome(application.getMonthlyIncome())
+                .coApplicantsIncome(application.getCoApplicantsIncome())
+                .obligations(application.getObligations())
+                .mortgageLoans(application.getMortgageLoans())
+                .consumerLoans(application.getConsumerLoans())
+                .leasingAmount(application.getLeasingAmount())
+                .creditCardLimit(application.getCreditCardLimit())
+                .monthlyPayment(application.getAvailableMonthlyPayment())
+                .realEstateAddress(application.getRealEstateAddress())
+                .realEstatePrice(application.getRealEstatePrice())
+                .downPayment(application.getDownPayment())
+                .loanAmount(application.getLoanAmount())
+                .loanTerm(application.getLoanTerm())
+                .paymentScheduleType(application.getPaymentScheduleType())
+                .interestRateMargin(application.getInterestRateMargin())
+                .euriborTerm(application.getEuriborTerm())
+                .interestRateEuribor(application.getInterestRateEuribor())
+                .totalHouseholdIncome(application.getTotalHouseholdIncome())
+                .coApplicantEmail(application.getCoApplicantEmail())
+                .applicationStatus(application.getApplicationStatus())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .personalNumber(user.getPersonalNumber())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .address(user.getAddress())
+                .build();
+    }
+
 }
 
